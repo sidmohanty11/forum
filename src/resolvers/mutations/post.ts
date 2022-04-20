@@ -1,5 +1,6 @@
 import { Post } from "@prisma/client";
 import { Context } from "../../types";
+import { canUserMutatePost } from "../../utils/canUserMutatePost";
 
 type PostType = {
   title: string;
@@ -27,8 +28,19 @@ export const postResolvers = {
   postCreate: async (
     _: any,
     { post: { title, content, category } }: postCreateArgs,
-    { prisma }: Context
+    { prisma, userInfo }: Context
   ): Promise<PostPayload> => {
+    if (!userInfo) {
+      return {
+        userErrors: [
+          {
+            message: "You must be logged in to post something",
+          },
+        ],
+        post: null,
+      };
+    }
+
     if (!title.trim() || !content.trim() || !category.trim()) {
       return {
         userErrors: [
@@ -46,7 +58,7 @@ export const postResolvers = {
         title,
         content,
         category,
-        authorId: 1,
+        authorId: userInfo.userId,
       },
     });
 
@@ -58,8 +70,29 @@ export const postResolvers = {
   postUpdate: async (
     _: any,
     { postId, post: { title, content, category } }: postUpdateArgs,
-    { prisma }: Context
+    { prisma, userInfo }: Context
   ): Promise<PostPayload> => {
+    if (!userInfo) {
+      return {
+        userErrors: [
+          {
+            message: "You must be logged in to post something",
+          },
+        ],
+        post: null,
+      };
+    }
+
+    const error = await canUserMutatePost({
+      userId: userInfo.userId,
+      postId: Number(postId),
+      prisma,
+    });
+
+    if (error) {
+      return error;
+    }
+
     if (!title.trim() || !content.trim() || !category.trim()) {
       return {
         userErrors: [
@@ -92,7 +125,6 @@ export const postResolvers = {
         title,
         content,
         category,
-        authorId: 1,
       },
       where: {
         id: Number(postId),
@@ -107,8 +139,29 @@ export const postResolvers = {
   postDelete: async (
     _: any,
     { postId }: { postId: string },
-    { prisma }: Context
+    { prisma, userInfo }: Context
   ): Promise<PostPayload> => {
+    if (!userInfo) {
+      return {
+        userErrors: [
+          {
+            message: "You must be logged in to post something",
+          },
+        ],
+        post: null,
+      };
+    }
+
+    const error = await canUserMutatePost({
+      userId: userInfo.userId,
+      postId: Number(postId),
+      prisma,
+    });
+
+    if (error) {
+      return error;
+    }
+
     const existingPost = await prisma.post.findUnique({
       where: { id: Number(postId) },
     });
@@ -129,6 +182,82 @@ export const postResolvers = {
     return {
       userErrors: [],
       post: existingPost,
+    };
+  },
+  postPublish: async (
+    _: any,
+    { postId }: { postId: string },
+    { prisma, userInfo }: Context
+  ): Promise<PostPayload> => {
+    if (!userInfo) {
+      return {
+        userErrors: [
+          {
+            message: "You must be logged in to post something",
+          },
+        ],
+        post: null,
+      };
+    }
+
+    const error = await canUserMutatePost({
+      userId: userInfo.userId,
+      postId: Number(postId),
+      prisma,
+    });
+
+    if (error) {
+      return error;
+    }
+
+    return {
+      userErrors: [],
+      post: await prisma.post.update({
+        where: {
+          id: Number(postId),
+        },
+        data: {
+          published: true,
+        },
+      }),
+    };
+  },
+  postUnpublish: async (
+    _: any,
+    { postId }: { postId: string },
+    { prisma, userInfo }: Context
+  ): Promise<PostPayload> => {
+    if (!userInfo) {
+      return {
+        userErrors: [
+          {
+            message: "You must be logged in to post something",
+          },
+        ],
+        post: null,
+      };
+    }
+
+    const error = await canUserMutatePost({
+      userId: userInfo.userId,
+      postId: Number(postId),
+      prisma,
+    });
+
+    if (error) {
+      return error;
+    }
+
+    return {
+      userErrors: [],
+      post: await prisma.post.update({
+        where: {
+          id: Number(postId),
+        },
+        data: {
+          published: false,
+        },
+      }),
     };
   },
 };
