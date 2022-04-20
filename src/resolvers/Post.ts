@@ -1,4 +1,3 @@
-import { Context } from "../types";
 import { userLoader } from "../loaders/userLoader";
 
 interface PostParent {
