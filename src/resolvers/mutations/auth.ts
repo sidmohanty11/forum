@@ -4,12 +4,20 @@ import bcrypt from "bcryptjs";
 import JWT from "jsonwebtoken";
 import { JWT_SECRET } from "../../keys";
 
-interface SignupArgs {
+interface CredsType {
   email: string;
-  name: string;
   password: string;
+}
+
+interface SignupArgs {
+  credentials: CredsType;
+  name: string;
   bio: string;
   regNo: string;
+}
+
+interface SignInArgs {
+  credentials: CredsType;
 }
 
 interface UserPayload {
@@ -22,7 +30,7 @@ interface UserPayload {
 export const authResolvers = {
   signup: async (
     _: any,
-    { email, name, password, bio, regNo }: SignupArgs,
+    { credentials: { email, password }, name, bio, regNo }: SignupArgs,
     { prisma }: Context
   ): Promise<UserPayload> => {
     const isEmail = validator.isEmail(email);
@@ -71,6 +79,64 @@ export const authResolvers = {
         password: hashedPassword,
       },
     });
+
+    await prisma.profile.create({
+      data: {
+        bio,
+        regNo,
+        userId: user.id,
+      },
+    });
+
+    const token = JWT.sign(
+      {
+        userId: user.id,
+      },
+      JWT_SECRET,
+      {
+        expiresIn: 3600000,
+      }
+    );
+
+    return {
+      userErrors: [],
+      token,
+    };
+  },
+  signin: async (
+    _: any,
+    { credentials: { email, password } }: SignInArgs,
+    { prisma }: Context
+  ): Promise<UserPayload> => {
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      return {
+        userErrors: [
+          {
+            message: "Invalid email or password",
+          },
+        ],
+        token: null,
+      };
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return {
+        userErrors: [
+          {
+            message: "Invalid email or password",
+          },
+        ],
+        token: null,
+      };
+    }
 
     const token = JWT.sign(
       {
