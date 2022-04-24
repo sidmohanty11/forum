@@ -260,4 +260,66 @@ export const postResolvers = {
       }),
     };
   },
+  likeOrDislike: async (
+    _: any,
+    { postId }: { postId: string },
+    { prisma, userInfo }: Context
+  ): Promise<PostPayload> => {
+    if (!userInfo) {
+      return {
+        userErrors: [
+          {
+            message: "You must be logged in to post something",
+          },
+        ],
+        post: null,
+      };
+    }
+
+    const error = await canUserMutatePost({
+      userId: userInfo.userId,
+      postId: Number(postId),
+      prisma,
+    });
+
+    if (error) {
+      return error;
+    }
+
+    const thePost = await prisma.post.findUnique({
+      where: { id: Number(postId) },
+    });
+
+    if (!thePost) {
+      return {
+        userErrors: [
+          {
+            message: "Post doesn't exist",
+          },
+        ],
+        post: null,
+      };
+    }
+
+    const liked = thePost.likes.find((id) => id === String(userInfo.userId));
+
+    if (liked) {
+      const otherLikes = thePost.likes.filter((id: string) => id !== liked);
+      thePost.likes = otherLikes;
+    } else {
+      thePost.likes.push(String(userInfo.userId));
+    }
+
+    return {
+      userErrors: [],
+      post: await prisma.post.update({
+        where: {
+          id: Number(postId),
+        },
+        data: {
+          likes: thePost.likes,
+        },
+      }),
+    };
+  },
 };

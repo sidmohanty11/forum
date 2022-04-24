@@ -4,7 +4,7 @@ export const typeDefs = gql`
   type Query {
     hello: String!
     me: User
-    posts(take: Int!, skip: Int!): [Post!]!
+    posts: [Post!]!
     profile(userId: ID!): Profile
   }
 
@@ -14,6 +14,7 @@ export const typeDefs = gql`
     postDelete(postId: ID!): PostPayload!
     postPublish(postId: ID!): PostPayload!
     postUnpublish(postId: ID!): PostPayload!
+    likeOrDislike(postId: ID!): PostPayload!
     signup(
       credentials: AuthInput!
       name: String!
@@ -21,6 +22,9 @@ export const typeDefs = gql`
       bio: String!
     ): AuthPayload!
     signin(credentials: AuthInput!): AuthPayload!
+    commentCreate(comment: CommentInput!): CommentPayload!
+    commentUpdate(commentId: ID!, comment: CommentInput!): CommentPayload!
+    commentDelete(commentId: ID!): CommentPayload!
   }
 
   type Post {
@@ -40,7 +44,7 @@ export const typeDefs = gql`
     id: ID!
     name: String!
     email: String!
-    posts(take: Int!, skip: Int!): [Post]
+    posts: [Post]
   }
 
   type Profile {
@@ -61,6 +65,7 @@ export const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     post: Post!
+    user: User!
   }
 
   type UserError {
@@ -83,8 +88,18 @@ export const typeDefs = gql`
     password: String!
   }
 
+  input CommentInput {
+    content: String!
+    postId: ID!
+  }
+
   type AuthPayload {
     userErrors: [UserError!]!
     token: String
+  }
+
+  type CommentPayload {
+    userErrors: [UserError!]!
+    comment: Comment
   }
 `;

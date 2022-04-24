@@ -10,11 +10,7 @@ export const Query = {
     }
     return await prisma.user.findUnique({ where: { id: userInfo.userId } });
   },
-  posts: async (
-    _: any,
-    { take, skip }: { take: number; skip: number },
-    { prisma }: Context
-  ) => {
+  posts: async (__: any, _: any, { prisma }: Context) => {
     return await prisma.post.findMany({
       where: {
         published: true,
@@ -24,8 +20,6 @@ export const Query = {
           createdAt: "desc",
         },
       ],
-      skip,
-      take,
     });
   },
   profile: async (

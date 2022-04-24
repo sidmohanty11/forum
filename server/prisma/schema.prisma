@@ -17,6 +17,8 @@ model Comment {
   updatedAt DateTime @updatedAt
   post      Post     @relation(fields: [postId], references: [id])
   postId    Int
+  user      User     @relation(fields: [authorId], references: [id])
+  authorId  Int
 }
 
 model Post {
@@ -34,14 +36,15 @@ model Post {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
   name      String
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   posts     Post[]
   profile   Profile?
+  Comment   Comment[]
 }
 
 model Profile {
