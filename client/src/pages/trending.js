@@ -2,8 +2,7 @@ import React from "react";
 import Layout from "../components/Layout";
 import PostPreview from "../components/PostPreview";
 
-// home page
-const Home = () => {
+const Trending = () => {
   return (
     <Layout>
       <PostPreview />
@@ -14,4 +13,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Trending;

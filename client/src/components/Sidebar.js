@@ -6,7 +6,6 @@ import {
   Flex,
   Icon,
   useColorModeValue,
-  Link,
   Drawer,
   DrawerContent,
   useDisclosure,
@@ -20,6 +19,7 @@ import {
   FiMenu,
   FiAlertCircle,
 } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const LinkItems = [
   { name: "Home", icon: FiHome, href: "/" },
@@ -90,7 +90,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 const NavItem = ({ icon, children, href, ...rest }) => {
   return (
     <Link
-      href={href}
+      to={href}
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
     >
