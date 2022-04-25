@@ -9,6 +9,7 @@ import Blogs from "./pages/blogs";
 import Discussions from "./pages/discussions";
 import Trending from "./pages/trending";
 import Questions from "./pages/questions";
+import Profile from "./pages/profile";
 import NotFound from "./pages/404";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route exact path="/discussions" element={<Discussions />} />
           <Route exact path="/questions" element={<Questions />} />
           <Route exact path="/trending" element={<Trending />} />
+          <Route exact path="/users/:id" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

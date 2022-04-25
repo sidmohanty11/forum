@@ -78,7 +78,7 @@ const Navbar = () => {
                 </Center>
                 <br />
                 <MenuDivider />
-                <MenuItem>Your Servers</MenuItem>
+                <MenuItem>Your Profile</MenuItem>
                 <MenuItem>Account Settings</MenuItem>
                 <MenuItem>Logout</MenuItem>
               </MenuList>
