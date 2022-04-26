@@ -7,8 +7,9 @@ import {
   Stack,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { FiHeart } from "react-icons/fi";
 
-const PostPreview = () => {
+const PostPreview = ({ post }) => {
   return (
     <Center py={6}>
       <Box
@@ -28,20 +29,23 @@ const PostPreview = () => {
             fontSize={"sm"}
             letterSpacing={1.1}
           >
-            Blog
+            {post.category}
           </Text>
           <Heading
             color={useColorModeValue("gray.700", "white")}
             fontSize={"2xl"}
             fontFamily={"body"}
           >
-            Boost your conversion rate
+            {post.title}
           </Heading>
         </Stack>
         <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
+          <FiHeart /> <Text>{post.likes.length}</Text>
           <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-            <Text fontWeight={600}>Achim Rolle</Text>
-            <Text color={"gray.500"}>Feb 08, 2021 · 6min read</Text>
+            <Text fontWeight={600}>{post.user.name}</Text>
+            <Text color={"gray.500"}>
+              {new Date(Number(post.createdAt)).toLocaleString()}
+            </Text>
           </Stack>
         </Stack>
       </Box>
