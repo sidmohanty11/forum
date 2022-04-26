@@ -3,18 +3,32 @@ import {
   FormControl,
   FormLabel,
   Input,
-  FormErrorMessage,
+  Text,
   Button,
   Container,
   Center,
   Box,
   Heading,
-  Text,
 } from "@chakra-ui/react";
 import { Form, Field, Formik } from "formik";
 import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { SIGNUP } from "../lib/signup";
+import {
+  validateEmail,
+  validatePassword,
+  validateRegNo,
+  validateStringPresent,
+} from "../utils/validateAuth";
 
 const Register = () => {
+  const [signup, { loading }] = useMutation(SIGNUP);
+
+  // TODO
+  if (loading) {
+    <p>Loading...</p>;
+  }
+
   return (
     <Box
       display={"flex"}
@@ -27,21 +41,41 @@ const Register = () => {
           <Heading py={4}>REGISTER | OUTR-Forums</Heading>
         </Center>
         <Formik
-          initialValues={{ email: "" }}
-          onSubmit={(values, actions) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              actions.setSubmitting(false);
-            }, 1000);
+          initialValues={{
+            email: "",
+            password: "",
+            regNo: "",
+            name: "",
+            bio: "",
+          }}
+          onSubmit={async (values, actions) => {
+            const { data } = await signup({
+              variables: {
+                email: values.email,
+                password: values.password,
+                bio: values.bio,
+                regNo: values.regNo,
+                name: values.name,
+              },
+            });
+            if (data.signup.userErrors.length) {
+              actions.setErrors({
+                email: data.signup.userErrors[0].message,
+                password: data.signup.userErrors[0].message,
+                bio: data.signup.userErrors[0].message,
+                regNo: data.signup.userErrors[0].message,
+                name: data.signup.userErrors[0].message,
+              });
+            }
+            localStorage.setItem("token", data.signup.token);
+            actions.setSubmitting(false);
           }}
         >
           {(props) => (
             <Form>
-              <Field name="name">
+              <Field name="name" validate={validateStringPresent}>
                 {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.name && form.touched.name}
-                  >
+                  <FormControl>
                     <FormLabel mt={4} htmlFor="name">
                       Name
                     </FormLabel>
@@ -51,15 +85,13 @@ const Register = () => {
                       id="name"
                       placeholder="Name"
                     />
-                    <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+                    <Text color="red.500">{form.errors.name}</Text>
                   </FormControl>
                 )}
               </Field>
-              <Field name="regNo">
+              <Field name="regNo" validate={validateRegNo}>
                 {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.name && form.touched.name}
-                  >
+                  <FormControl>
                     <FormLabel mt={4} htmlFor="regNo">
                       Registration Number
                     </FormLabel>
@@ -69,28 +101,24 @@ const Register = () => {
                       id="regNo"
                       placeholder="Registration Number"
                     />
-                    <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+                    <Text color="red.500">{form.errors.regNo}</Text>
                   </FormControl>
                 )}
               </Field>
-              <Field name="bio">
+              <Field name="bio" validate={validateStringPresent}>
                 {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.name && form.touched.name}
-                  >
+                  <FormControl>
                     <FormLabel mt={4} htmlFor="bio">
                       Bio
                     </FormLabel>
                     <Input {...field} type="text" id="bio" placeholder="Name" />
-                    <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+                    <Text color="red.500">{form.errors.bio}</Text>
                   </FormControl>
                 )}
               </Field>
-              <Field name="email">
+              <Field name="email" validate={validateEmail}>
                 {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.name && form.touched.name}
-                  >
+                  <FormControl>
                     <FormLabel mt={4} htmlFor="email">
                       Email
                     </FormLabel>
@@ -100,15 +128,13 @@ const Register = () => {
                       id="email"
                       placeholder="Email"
                     />
-                    <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+                    <Text color="red.500">{form.errors.email}</Text>
                   </FormControl>
                 )}
               </Field>
-              <Field name="password">
+              <Field name="password" validate={validatePassword}>
                 {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.name && form.touched.name}
-                  >
+                  <FormControl>
                     <FormLabel mt={4} htmlFor="password">
                       Password
                     </FormLabel>
@@ -118,7 +144,7 @@ const Register = () => {
                       id="password"
                       placeholder="Password"
                     />
-                    <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+                    <Text color="red.500">{form.errors.password}</Text>
                   </FormControl>
                 )}
               </Field>

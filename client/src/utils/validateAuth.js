@@ -22,3 +22,21 @@ export const validatePassword = (value) => {
 
   return error;
 };
+
+export const validateStringPresent = (value) => {
+  let error = "";
+  if (!value) {
+    error = "Required";
+  }
+  return error;
+};
+
+export const validateRegNo = (value) => {
+  let error = "";
+  if (!value) {
+    error = "Required";
+  } else if (value.length !== 10) {
+    error = "Not a valid Registration Number";
+  }
+  return error;
+};

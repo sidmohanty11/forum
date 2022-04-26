@@ -3,7 +3,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  FormErrorMessage,
   Button,
   Container,
   Center,
@@ -15,11 +14,12 @@ import { Form, Field, Formik } from "formik";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../lib/login";
-import { validateEmail, validatePassword } from "../utils/validateSignin";
+import { validateEmail, validatePassword } from "../utils/validateAuth";
 
 const Login = () => {
   const [signin, { loading }] = useMutation(LOGIN);
 
+  // TODO
   if (loading) {
     <p>Loading...</p>;
   }
