@@ -13,8 +13,17 @@ import {
 } from "@chakra-ui/react";
 import { Form, Field, Formik } from "formik";
 import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "../lib/login";
+import { validateEmail, validatePassword } from "../utils/validateSignin";
 
 const Login = () => {
+  const [signin, { loading }] = useMutation(LOGIN);
+
+  if (loading) {
+    <p>Loading...</p>;
+  }
+
   return (
     <Box
       display={"flex"}
@@ -27,21 +36,26 @@ const Login = () => {
           <Heading py={4}>LOGIN | OUTR-Forums</Heading>
         </Center>
         <Formik
-          initialValues={{ email: "" }}
-          onSubmit={(values, actions) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              actions.setSubmitting(false);
-            }, 1000);
+          initialValues={{ email: "", password: "" }}
+          onSubmit={async (values, actions) => {
+            const { data } = await signin({
+              variables: { email: values.email, password: values.password },
+            });
+            if (data.signin.userErrors.length) {
+              actions.setErrors({
+                email: data.signin.userErrors[0].message,
+                password: data.signin.userErrors[0].message,
+              });
+            }
+            localStorage.setItem("token", data.signin.token);
+            actions.setSubmitting(false);
           }}
         >
-          {(props) => (
+          {({ errors, isSubmitting }) => (
             <Form>
-              <Field name="email">
+              <Field name="email" validate={validateEmail}>
                 {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.name && form.touched.name}
-                  >
+                  <FormControl>
                     <FormLabel mt={4} htmlFor="email">
                       Email
                     </FormLabel>
@@ -51,15 +65,13 @@ const Login = () => {
                       id="email"
                       placeholder="Email"
                     />
-                    <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+                    <Text color={"red.500"}>{form.errors.email}</Text>
                   </FormControl>
                 )}
               </Field>
-              <Field name="password">
+              <Field name="password" validate={validatePassword}>
                 {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.name && form.touched.name}
-                  >
+                  <FormControl>
                     <FormLabel mt={4} htmlFor="password">
                       Password
                     </FormLabel>
@@ -69,7 +81,7 @@ const Login = () => {
                       id="password"
                       placeholder="Password"
                     />
-                    <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+                    <Text color={"red.500"}>{form.errors.password}</Text>
                   </FormControl>
                 )}
               </Field>
@@ -79,7 +91,7 @@ const Login = () => {
               <Button
                 mt={4}
                 colorScheme="teal"
-                isLoading={props.isSubmitting}
+                isLoading={isSubmitting}
                 type="submit"
               >
                 Submit
