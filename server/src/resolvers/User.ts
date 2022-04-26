@@ -5,27 +5,19 @@ interface UserParent {
 }
 
 export const User = {
-  posts: async (
-    parent: UserParent,
-    { skip, take }: { skip: number; take: number },
-    { prisma, userInfo }: Context
-  ) => {
+  posts: async (parent: UserParent, _: any, { prisma, userInfo }: Context) => {
     const isOwnAccount = parent.id === userInfo?.userId;
 
     if (isOwnAccount) {
       return await prisma.post.findMany({
-        where: { id: parent.id },
+        where: { authorId: parent.id },
         orderBy: [{ createdAt: "desc" }],
-        skip,
-        take,
       });
     }
 
     return await prisma.post.findMany({
-      where: { id: parent.id, published: true },
+      where: { authorId: parent.id, published: true },
       orderBy: [{ createdAt: "desc" }],
-      skip,
-      take,
     });
   },
 };

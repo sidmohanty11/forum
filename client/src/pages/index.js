@@ -1,23 +1,9 @@
 import React from "react";
 import Layout from "../components/Layout";
 import PostPreview from "../components/PostPreview";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Center, Heading, Skeleton } from "@chakra-ui/react";
-
-const GET_POSTS = gql`
-  {
-    posts {
-      id
-      title
-      category
-      user {
-        name
-      }
-      createdAt
-      likes
-    }
-  }
-`;
+import { GET_POSTS } from "../lib/getPosts";
 
 // home page
 const Home = () => {
