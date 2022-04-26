@@ -8,6 +8,19 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { FiHeart } from "react-icons/fi";
+import { Link } from "react-router-dom";
+
+const colourSelectionForCategories = {
+  discussion: "red.500",
+  blog: "blue.500",
+  question: "purle.500",
+};
+
+const colourSelectionForLikesBg = {
+  discussion: "red.200",
+  blog: "blue.200",
+  question: "purle.200",
+};
 
 const PostPreview = ({ post }) => {
   return (
@@ -21,33 +34,44 @@ const PostPreview = ({ post }) => {
         p={6}
         overflow={"hidden"}
       >
-        <Stack>
-          <Text
-            color={"green.500"}
-            textTransform={"uppercase"}
-            fontWeight={800}
-            fontSize={"sm"}
-            letterSpacing={1.1}
-          >
-            {post.category}
-          </Text>
-          <Heading
-            color={useColorModeValue("gray.700", "white")}
-            fontSize={"2xl"}
-            fontFamily={"body"}
-          >
-            {post.title}
-          </Heading>
-        </Stack>
-        <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
-          <FiHeart /> <Text>{post.likes.length}</Text>
-          <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-            <Text fontWeight={600}>{post.user.name}</Text>
-            <Text color={"gray.500"}>
-              {new Date(Number(post.createdAt)).toLocaleString()}
+        <Link to={`/posts/${post.id}`}>
+          <Stack>
+            <Text
+              color={colourSelectionForCategories[post.category]}
+              textTransform={"uppercase"}
+              fontWeight={800}
+              fontSize={"sm"}
+              letterSpacing={1.1}
+            >
+              {post.category}
             </Text>
+            <Heading
+              color={useColorModeValue("gray.700", "white")}
+              fontSize={"2xl"}
+              fontFamily={"body"}
+            >
+              {post.title}
+            </Heading>
           </Stack>
-        </Stack>
+          <Stack mt={6} direction={"row"} spacing={4} align={"center"}>
+            <Box
+              display="flex"
+              bgColor={colourSelectionForLikesBg[post.category]}
+              rounded="md"
+              p={2}
+              alignItems={"center"}
+              experimental_spaceX={1}
+            >
+              <FiHeart /> <Text>{post.likes.length}</Text>
+            </Box>
+            <Stack direction={"column"} spacing={0} fontSize={"sm"}>
+              <Text fontWeight={600}>{post.user.name}</Text>
+              <Text color={"gray.500"}>
+                {new Date(Number(post.createdAt)).toLocaleString()}
+              </Text>
+            </Stack>
+          </Stack>
+        </Link>
       </Box>
     </Center>
   );
