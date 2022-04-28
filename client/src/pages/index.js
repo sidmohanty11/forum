@@ -2,12 +2,15 @@ import React from "react";
 import Layout from "../components/Layout";
 import PostPreview from "../components/PostPreview";
 import { useQuery } from "@apollo/client";
-import { Center, Heading, Skeleton } from "@chakra-ui/react";
+import { Center, Heading, IconButton, Skeleton } from "@chakra-ui/react";
 import { GET_POSTS } from "../lib/getPosts";
+import { AddIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 // home page
 const Home = () => {
   const { data, error, loading } = useQuery(GET_POSTS);
+  const navigate = useNavigate();
 
   if (loading) {
     return (
@@ -60,6 +63,11 @@ const Home = () => {
 
   return (
     <Layout>
+      <IconButton
+        onClick={() => navigate("/new")}
+        aria-label="Add to friends"
+        icon={<AddIcon />}
+      />
       {data.posts.map((post) => (
         <PostPreview key={post.id} post={post} />
       ))}
