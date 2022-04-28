@@ -1,7 +1,12 @@
 import React from "react";
+import MarkdownEditor from "../components/MarkdownEditor";
 
 const NewPost = () => {
-  return <div>new</div>;
+  return (
+    <div>
+      <MarkdownEditor />
+    </div>
+  );
 };
 
 export default NewPost;

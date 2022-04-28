@@ -11,13 +11,14 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Form, Field, Formik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../lib/login";
 import { validateEmail, validatePassword } from "../utils/validateAuth";
 
 const Login = () => {
   const [signin, { loading }] = useMutation(LOGIN);
+  const navigate = useNavigate();
 
   // TODO
   if (loading) {
@@ -49,6 +50,7 @@ const Login = () => {
             }
             localStorage.setItem("token", data.signin.token);
             actions.setSubmitting(false);
+            navigate("/");
           }}
         >
           {({ errors, isSubmitting }) => (

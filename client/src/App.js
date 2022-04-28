@@ -1,5 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./pages";
 import NewPost from "./pages/new";
 import Login from "./pages/login";
@@ -11,25 +11,28 @@ import Trending from "./pages/trending";
 import Questions from "./pages/questions";
 import Profile from "./pages/profile";
 import NotFound from "./pages/404";
+// import { useAuth } from "./hooks/use-auth";
 
 function App() {
+  // const { tokenIsPresent } = useAuth();
   return (
     <ChakraProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/new" element={<NewPost />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route exact path="/posts/:id" element={<Post />} />
-          <Route exact path="/blogs" element={<Blogs />} />
-          <Route exact path="/discussions" element={<Discussions />} />
-          <Route exact path="/questions" element={<Questions />} />
-          <Route exact path="/trending" element={<Trending />} />
-          <Route exact path="/users/:id" element={<Profile />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/register" element={<Register />} />
+        <Route path="*" element={<NotFound />} />
+        <Route exact index path="/" element={<Home />} />
+        <Route exact path="/new" element={<NewPost />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/posts/:id" element={<Post />} />
+        <Route exact path="/blogs" element={<Blogs />} />
+        <Route exact path="/discussions" element={<Discussions />} />
+        <Route exact path="/questions" element={<Questions />} />
+        <Route exact path="/trending" element={<Trending />} />
+        <Route exact path="/users/:id" element={<Profile />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </ChakraProvider>
   );
 }

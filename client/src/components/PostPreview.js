@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 const colourSelectionForCategories = {
   discussion: "red.500",
   blog: "blue.500",
-  question: "purle.500",
+  question: "pink.500",
 };
 
 const colourSelectionForLikesBg = {
