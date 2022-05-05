@@ -47,6 +47,7 @@ const Login = () => {
                 email: data.signin.userErrors[0].message,
                 password: data.signin.userErrors[0].message,
               });
+              return;
             }
             localStorage.setItem("token", data.signin.token);
             actions.setSubmitting(false);

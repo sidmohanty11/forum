@@ -67,6 +67,7 @@ const Register = () => {
                 regNo: data.signup.userErrors[0].message,
                 name: data.signup.userErrors[0].message,
               });
+              return;
             }
             localStorage.setItem("token", data.signup.token);
             actions.setSubmitting(false);

@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import MDEditor from "@uiw/react-md-editor";
 
-const MarkdownEditor = () => {
-  const [value, setValue] = useState();
+const MarkdownEditor = ({ value, setValue }) => {
   return <MDEditor value={value} onChange={setValue} />;
 };
 
