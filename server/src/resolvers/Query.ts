@@ -31,4 +31,41 @@ export const Query = {
       where: { userId: Number(userId) },
     });
   },
+  postsByCategory: async (
+    _: any,
+    { category }: { category: string },
+    { prisma }: Context
+  ) => {
+    return await prisma.post.findMany({
+      where: {
+        published: true,
+        category,
+      },
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
+    });
+  },
+  postsBySearch: async (
+    _: any,
+    { search }: { search: any },
+    { prisma }: Context
+  ) => {
+    return await prisma.post.findMany({
+      where: {
+        published: true,
+        content: {
+          //@ts-ignore
+          search,
+        },
+      },
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
+    });
+  },
 };

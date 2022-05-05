@@ -6,6 +6,8 @@ export const typeDefs = gql`
     me: User
     posts: [Post!]!
     profile(userId: ID!): Profile
+    postsByCategory(category: String!): [Post!]!
+    postsBySearch(search: String!): [Post!]!
   }
 
   type Mutation {
