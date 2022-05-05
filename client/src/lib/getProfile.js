@@ -15,6 +15,7 @@ export const GET_PROFILE = gql`
           }
           createdAt
           likes
+          published
         }
       }
       avatarUrl

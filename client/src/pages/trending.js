@@ -1,14 +1,11 @@
+import { Heading } from "@chakra-ui/react";
 import React from "react";
 import Layout from "../components/Layout";
-import PostPreview from "../components/PostPreview";
 
 const Trending = () => {
   return (
     <Layout>
-      <PostPreview />
-      <PostPreview />
-      <PostPreview />
-      <PostPreview />
+      <Heading>Coming Soon.</Heading>
     </Layout>
   );
 };

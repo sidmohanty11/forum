@@ -11,6 +11,7 @@ export const GET_POSTS = gql`
       }
       createdAt
       likes
+      published
     }
   }
 `;

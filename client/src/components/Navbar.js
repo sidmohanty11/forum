@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Box,
   Flex,
   Avatar,
-  Link,
   Button,
   Menu,
   MenuButton,
@@ -17,24 +18,21 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { UserContext } from "../context/UserContext";
 
-const NavLink = ({ children }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={"md"}
-    _hover={{
-      textDecoration: "none",
-    }}
-    href={"/"}
-  >
-    {children}
-  </Link>
-);
+const NavLink = ({ children, href }) => <Link to={href}>{children}</Link>;
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { userId } = useContext(UserContext);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <Box
       bg={useColorModeValue("white", "gray.900")}
@@ -78,9 +76,11 @@ const Navbar = () => {
                 </Center>
                 <br />
                 <MenuDivider />
-                <MenuItem>Your Profile</MenuItem>
+                <MenuItem>
+                  <NavLink href={`/users/${userId}`}>Your Profile</NavLink>
+                </MenuItem>
                 <MenuItem>Account Settings</MenuItem>
-                <MenuItem>Logout</MenuItem>
+                <MenuItem onClick={logout}>Logout</MenuItem>
               </MenuList>
             </Menu>
           </Stack>
