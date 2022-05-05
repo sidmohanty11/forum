@@ -6,6 +6,7 @@ export const typeDefs = gql`
     me: User
     posts: [Post!]!
     profile(userId: ID!): Profile
+    postById(id: String!): Post!
     postsByCategory(category: String!): [Post!]!
     postsBySearch(search: String!): [Post!]!
   }

@@ -31,6 +31,13 @@ export const Query = {
       where: { userId: Number(userId) },
     });
   },
+  postById: async (_: any, { id }: { id: string }, { prisma }: Context) => {
+    return await prisma.post.findUnique({
+      where: {
+        id: Number(id),
+      },
+    });
+  },
   postsByCategory: async (
     _: any,
     { category }: { category: string },

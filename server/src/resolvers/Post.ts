@@ -7,16 +7,18 @@ interface PostParent {
 
 interface CommentParent {
   authorId: number;
-  postId: number;
+  id: number;
 }
 
 export const Post = {
   user: async (parent: PostParent) => {
     return userLoader.load(parent.authorId);
   },
-  comments: async ({ postId }: CommentParent, _: any, { prisma }: Context) => {
+  comments: async ({ id }: CommentParent, _: any, { prisma }: Context) => {
     return await prisma.comment.findMany({
-      where: { postId },
+      where: {
+        postId: Number(id),
+      },
     });
   },
 };
