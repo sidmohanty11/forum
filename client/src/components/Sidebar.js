@@ -24,9 +24,9 @@ import { Link } from "react-router-dom";
 const LinkItems = [
   { name: "Home", icon: FiHome, href: "/" },
   { name: "Trending", icon: FiTrendingUp, href: "/trending" },
-  { name: "Discussions", icon: FiBookOpen, href: "/discussions" },
-  { name: "Blogs", icon: FiFeather, href: "/blogs" },
-  { name: "Questions", icon: FiAlertCircle, href: "/questions" },
+  { name: "Discussions", icon: FiBookOpen, href: "/discussion" },
+  { name: "Blogs", icon: FiFeather, href: "/blog" },
+  { name: "Questions", icon: FiAlertCircle, href: "/question" },
 ];
 
 const Sidebar = ({ children }) => {

@@ -26,9 +26,9 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/posts/:id" element={<Post />} />
-        <Route exact path="/blogs" element={<Blogs />} />
-        <Route exact path="/discussions" element={<Discussions />} />
-        <Route exact path="/questions" element={<Questions />} />
+        <Route exact path="/blog" element={<Blogs />} />
+        <Route exact path="/discussion" element={<Discussions />} />
+        <Route exact path="/question" element={<Questions />} />
         <Route exact path="/trending" element={<Trending />} />
         <Route exact path="/users/:id" element={<Profile />} />
         <Route path="*" element={<NotFound />} />
