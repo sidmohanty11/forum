@@ -20,6 +20,7 @@ const Post = () => {
   const { data, error, loading } = useQuery(GET_POSTS_BY_ID, {
     variables: { id },
   });
+
   if (loading) {
     return <p>loading</p>;
   }
@@ -61,9 +62,9 @@ const Post = () => {
               {data.postById.likes.length} likes
             </Text>
           </Box>
-          <CommentBox />
+          <CommentBox postId={id} />
           {data.postById.comments.map((comment) => (
-            <Comment comment={comment} />
+            <Comment key={comment.id} comment={comment} postId={id} />
           ))}
         </Box>
       </Center>

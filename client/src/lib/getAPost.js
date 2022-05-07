@@ -11,7 +11,9 @@ export const GET_POSTS_BY_ID = gql`
         name
       }
       comments {
+        id
         user {
+          id
           name
         }
         content

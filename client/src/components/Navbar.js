@@ -72,9 +72,9 @@ const Navbar = () => {
                 </Center>
                 <br />
                 <MenuDivider />
-                <MenuItem>
-                  <NavLink href={`/users/${userId}`}>Your Profile</NavLink>
-                </MenuItem>
+                <NavLink href={`/users/${userId}`}>
+                  <MenuItem>Your Profile</MenuItem>
+                </NavLink>
                 <MenuItem onClick={onOpen}>
                   <UserEditModal isOpen={isOpen} onClose={onClose} />
                   Account Settings
