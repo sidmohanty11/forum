@@ -15,7 +15,7 @@ export const useAuth = () => {
       setTokenIsPresent(false);
       navigate("/login");
     }
-    if (data) {
+    if (data && data.me) {
       setUserId(data.me.id);
       localStorage.setItem("user_id", data.me.id);
     }

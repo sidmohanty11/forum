@@ -24,7 +24,6 @@ import {
 const Register = () => {
   const [signup, { loading }] = useMutation(SIGNUP);
   const navigate = useNavigate();
-
   // TODO
   if (loading) {
     <p>Loading...</p>;

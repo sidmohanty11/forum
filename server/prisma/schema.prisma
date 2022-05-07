@@ -16,9 +16,9 @@ model Comment {
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    Int
-  user      User     @relation(fields: [authorId], references: [id])
+  user      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId  Int
 }
 
@@ -33,7 +33,7 @@ model Post {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   authorId  Int
-  author    User      @relation(fields: [authorId], references: [id])
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
 
 model User {
@@ -58,5 +58,5 @@ model Profile {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId    Int      @unique
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -19,7 +19,6 @@ import { validateEmail, validatePassword } from "../utils/validateAuth";
 const Login = () => {
   const [signin, { loading }] = useMutation(LOGIN);
   const navigate = useNavigate();
-
   // TODO
   if (loading) {
     <p>Loading...</p>;

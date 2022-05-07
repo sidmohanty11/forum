@@ -7,6 +7,7 @@ import Comment from "../components/Comment";
 import { GET_POSTS_BY_ID } from "../lib/getAPost";
 import { UPDATE_POST } from "../lib/updatePost";
 import { DELETE_POST } from "../lib/deletePost";
+import { LIKE_OR_DISLIKE_POST } from "../lib/likeOrDislikePost";
 import { useMutation, useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import CommentBox from "../components/CommentBox";
@@ -30,10 +31,11 @@ const Post = () => {
   });
   const [updatePost] = useMutation(UPDATE_POST);
   const [deletePost] = useMutation(DELETE_POST);
+  const [likePost] = useMutation(LIKE_OR_DISLIKE_POST);
 
   useEffect(() => {
     if (!loading) {
-      setEditMode(data.postById.content);
+      setValue(data.postById.content);
     }
   }, [loading, data]);
 
@@ -62,6 +64,18 @@ const Post = () => {
     }
 
     deletePost({ variables: { postId: id } });
+  }
+
+  function likeOrDislikePost() {
+    if (!userId) {
+      return;
+    }
+
+    likePost({
+      variables: {
+        postId: id,
+      },
+    });
   }
 
   if (loading) {
@@ -124,7 +138,16 @@ const Post = () => {
             experimental_spaceX={3}
             style={{ display: "flex", alignItems: "center" }}
           >
-            <FiHeart size={40} fill="red" color="red" />
+            {data.postById.likes.find((id) => id === userId) ? (
+              <FiHeart
+                onClick={likeOrDislikePost}
+                size={40}
+                fill="red"
+                color="red"
+              />
+            ) : (
+              <FiHeart onClick={likeOrDislikePost} size={40} />
+            )}
             <Text style={{ fontWeight: "bold" }}>
               {data.postById.likes.length} likes
             </Text>
