@@ -28,6 +28,7 @@ export const typeDefs = gql`
     commentCreate(comment: CommentInput!): CommentPayload!
     commentUpdate(commentId: ID!, comment: CommentInput!): CommentPayload!
     commentDelete(commentId: ID!): CommentPayload!
+    updateUser(userId: ID!, profileInfo: ProfileInput!): ProfilePayload!
   }
 
   type Post {
@@ -96,6 +97,14 @@ export const typeDefs = gql`
     postId: ID!
   }
 
+  input ProfileInput {
+    regNo: String
+    bio: String
+    avatarUrl: String
+    branch: String
+    year: String
+  }
+
   type AuthPayload {
     userErrors: [UserError!]!
     token: String
@@ -104,5 +113,10 @@ export const typeDefs = gql`
   type CommentPayload {
     userErrors: [UserError!]!
     comment: Comment
+  }
+
+  type ProfilePayload {
+    userErrors: [UserError!]!
+    profile: Profile
   }
 `;

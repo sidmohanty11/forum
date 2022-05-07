@@ -113,7 +113,7 @@ const Register = () => {
                     <FormLabel mt={4} htmlFor="bio">
                       Bio
                     </FormLabel>
-                    <Input {...field} type="text" id="bio" placeholder="Name" />
+                    <Input {...field} type="text" id="bio" placeholder="Bio" />
                     <Text color="red.500">{form.errors.bio}</Text>
                   </FormControl>
                 )}
