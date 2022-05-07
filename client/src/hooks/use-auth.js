@@ -13,7 +13,6 @@ export const useAuth = () => {
   useEffect(() => {
     if (!token || error) {
       setTokenIsPresent(false);
-      navigate("/login");
     }
     if (data && data.me) {
       setUserId(data.me.id);

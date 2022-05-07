@@ -36,7 +36,6 @@ const UserEditModal = ({ isOpen, onClose }) => {
   });
   const [updateUser] = useMutation(UPDATE_USER);
 
-  console.log(data);
   useEffect(() => {
     if (!loading) {
       setProfileInfo({

@@ -19,7 +19,7 @@ const colourSelectionForCategories = {
 const colourSelectionForLikesBg = {
   discussion: "red.200",
   blog: "blue.200",
-  question: "purle.200",
+  question: "pink.200",
 };
 
 const PostPreview = ({ post }) => {
