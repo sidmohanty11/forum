@@ -17,6 +17,7 @@ export const useAuth = () => {
     }
     if (data) {
       setUserId(data.me.id);
+      localStorage.setItem("user_id", data.me.id);
     }
   }, [token, navigate, error, data]);
 
