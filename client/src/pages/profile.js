@@ -7,6 +7,7 @@ import {
   Skeleton,
   SkeletonCircle,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
 import { useParams } from "react-router-dom";
@@ -14,9 +15,11 @@ import { useQuery } from "@apollo/client";
 import Layout from "../components/Layout";
 import PostPreview from "../components/PostPreview";
 import { GET_PROFILE } from "../lib/getProfile";
+import UserEditModal from "../components/UserEditModal";
 
 // user/:id profile page
 const Profile = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { id } = useParams();
   const { data, loading, error } = useQuery(GET_PROFILE, {
     variables: {
@@ -69,7 +72,10 @@ const Profile = () => {
             Branch: {profile.branch ? profile.branch : "Not provided"}
           </Text>
           <Text>Year: {profile.year ? profile.year : "Not provided"}</Text>
-          <Button mt={4}>Edit Profile</Button>
+          <Button mt={4} onClick={onOpen}>
+            Edit Profile
+          </Button>
+          <UserEditModal isOpen={isOpen} onClose={onClose} />
         </Box>
       </Box>
       {profile.user.posts.map((post) => (

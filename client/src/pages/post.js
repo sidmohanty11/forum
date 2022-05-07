@@ -7,6 +7,7 @@ import Comment from "../components/Comment";
 import { GET_POSTS_BY_ID } from "../lib/getAPost";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
+import CommentBox from "../components/CommentBox";
 
 const colourSelectionForCategories = {
   discussion: "red.500",
@@ -28,7 +29,7 @@ const Post = () => {
   return (
     <Layout>
       <Center>
-        <Box w={"70vw"} border="1px solid #eee" borderRadius="md">
+        <Box w={"70vw"} border="1px solid #eee" borderRadius="md" p={4}>
           <Text
             style={{ fontWeight: "bold" }}
             fontSize="lg"
@@ -60,6 +61,7 @@ const Post = () => {
               {data.postById.likes.length} likes
             </Text>
           </Box>
+          <CommentBox />
           {data.postById.comments.map((comment) => (
             <Comment comment={comment} />
           ))}

@@ -7,14 +7,18 @@ export const useAuth = () => {
   const { data, error } = useQuery(ME);
   const [tokenIsPresent, setTokenIsPresent] = useState(true);
   const token = localStorage.getItem("token");
+  const [userId, setUserId] = useState(localStorage.getItem("user_id"));
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token || error || !data) {
+    if (!token || error) {
       setTokenIsPresent(false);
       navigate("/login");
     }
+    if (data) {
+      setUserId(data.me.id);
+    }
   }, [token, navigate, error, data]);
 
-  return { tokenIsPresent, userId: data?.me.id };
+  return { tokenIsPresent, userId };
 };
