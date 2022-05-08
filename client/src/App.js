@@ -17,7 +17,7 @@ import { UserContext } from "./context/UserContext";
 function App() {
   const { tokenIsPresent, userId } = useAuth();
   return (
-    <UserContext.Provider value={{ userId }}>
+    <UserContext.Provider value={{ userId, tokenIsPresent }}>
       <ChakraProvider>
         <Routes>
           <Route exact path="/login" element={<Login />} />

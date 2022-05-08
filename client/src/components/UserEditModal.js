@@ -37,7 +37,7 @@ const UserEditModal = ({ isOpen, onClose }) => {
   const [updateUser] = useMutation(UPDATE_USER);
 
   useEffect(() => {
-    if (!loading) {
+    if (!loading && !error) {
       setProfileInfo({
         avatarUrl: data.profile.avatarUrl,
         bio: data.profile.bio,
@@ -46,7 +46,7 @@ const UserEditModal = ({ isOpen, onClose }) => {
         regNo: data.profile.regNo,
       });
     }
-  }, [loading, data]);
+  }, [loading, data, error]);
 
   if (loading) {
     return <div>loading</div>;
@@ -60,7 +60,7 @@ const UserEditModal = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Create your account</ModalHeader>
+        <ModalHeader>Edit your Profile</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <Formik

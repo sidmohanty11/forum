@@ -11,7 +11,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { Form, Field, Formik } from "formik";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { SIGNUP } from "../lib/signup";
 import {
@@ -23,7 +23,6 @@ import {
 
 const Register = () => {
   const [signup, { loading }] = useMutation(SIGNUP);
-  const navigate = useNavigate();
   // TODO
   if (loading) {
     <p>Loading...</p>;
@@ -70,7 +69,7 @@ const Register = () => {
             }
             localStorage.setItem("token", data.signup.token);
             actions.setSubmitting(false);
-            navigate("/");
+            window.location.href = "/";
           }}
         >
           {(props) => (

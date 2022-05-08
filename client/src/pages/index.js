@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Layout from "../components/Layout";
 import PostPreview from "../components/PostPreview";
 import { useQuery } from "@apollo/client";
@@ -6,9 +6,12 @@ import { Center, Heading, IconButton, Skeleton } from "@chakra-ui/react";
 import { GET_POSTS } from "../lib/getPosts";
 import { AddIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 // home page
 const Home = () => {
+  const { userId } = useContext(UserContext);
+  const isUserPresent = userId && localStorage.getItem("token");
   const { data, error, loading } = useQuery(GET_POSTS);
   const navigate = useNavigate();
 
@@ -63,11 +66,13 @@ const Home = () => {
 
   return (
     <Layout>
-      <IconButton
-        onClick={() => navigate("/new")}
-        aria-label="Add to friends"
-        icon={<AddIcon />}
-      />
+      {isUserPresent && (
+        <IconButton
+          onClick={() => navigate("/new")}
+          aria-label="Add to friends"
+          icon={<AddIcon />}
+        />
+      )}
       {data.posts.map((post) => (
         <PostPreview key={post.id} post={post} />
       ))}
