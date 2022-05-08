@@ -1,0 +1,1 @@
+npx autocannon  -c1000 -d1 'http://localhost:4000/graphql' -m 'POST' --headers 'Content-Type: application/json' --body '{"query":"{  posts(skip: 0) {    id    title    published    content    comments {      content    }    user {      name      id    }    createdAt    likes    category  }}","variables":{}}'

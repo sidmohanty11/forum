@@ -1,0 +1,3 @@
+k6 run --vus 100 --iterations 1000 --summary-trend-stats="min,avg,med,p(99),p(99.9),max,count" --summary-time-unit=ms get_posts.js | cat > heavy_get_posts.MD
+k6 run --vus 100 --iterations 1000 --summary-trend-stats="min,avg,med,p(99),p(99.9),max,count" --summary-time-unit=ms get_a_post.js | cat > heavy_get_a_post.MD
+k6 run --vus 100 --iterations 1000 --summary-trend-stats="min,avg,med,p(99),p(99.9),max,count" --summary-time-unit=ms get_profile.js | cat > heavy_get_profile.MD
