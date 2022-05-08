@@ -4,10 +4,10 @@ export const typeDefs = gql`
   type Query {
     hello: String!
     me: User
-    posts: [Post!]!
+    posts(skip: Int!): [Post!]!
     profile(userId: ID!): Profile
     postById(id: String!): Post!
-    postsByCategory(category: String!): [Post!]!
+    postsByCategory(category: String!, skip: Int!): [Post!]!
     postsBySearch(search: String!): [Post!]!
   }
 

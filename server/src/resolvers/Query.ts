@@ -10,7 +10,7 @@ export const Query = {
     }
     return await prisma.user.findUnique({ where: { id: userInfo.userId } });
   },
-  posts: async (__: any, _: any, { prisma }: Context) => {
+  posts: async (__: any, { skip = 0 }: any, { prisma }: Context) => {
     return await prisma.post.findMany({
       where: {
         published: true,
@@ -20,6 +20,8 @@ export const Query = {
           createdAt: "desc",
         },
       ],
+      take: 10,
+      skip,
     });
   },
   profile: async (
@@ -40,7 +42,7 @@ export const Query = {
   },
   postsByCategory: async (
     _: any,
-    { category }: { category: string },
+    { category, skip = 0 }: { category: string; skip: number },
     { prisma }: Context
   ) => {
     return await prisma.post.findMany({
@@ -53,6 +55,8 @@ export const Query = {
           createdAt: "desc",
         },
       ],
+      take: 10,
+      skip,
     });
   },
   postsBySearch: async (

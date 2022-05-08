@@ -1,19 +1,32 @@
 import { useQuery } from "@apollo/client";
 import { AddIcon } from "@chakra-ui/icons";
-import { Center, Heading, IconButton, Skeleton } from "@chakra-ui/react";
-import React from "react";
+import {
+  Button,
+  Center,
+  Heading,
+  IconButton,
+  Skeleton,
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import PostPreview from "../components/PostPreview";
 import { GET_POSTS_BY_CATEGORY } from "../lib/getPostsByCategory";
 
 const Discussions = () => {
+  const [counter, setCounter] = useState(0);
   const location = useLocation();
   const category = location.pathname.replace("/", "");
-  const { data, error, loading } = useQuery(GET_POSTS_BY_CATEGORY, {
-    variables: { category },
+  const { data, error, loading, refetch } = useQuery(GET_POSTS_BY_CATEGORY, {
+    variables: { category, skip: counter },
   });
   const navigate = useNavigate();
+  const [noOfPosts, setNoOfPosts] = useState(data?.postsByCategory.length);
+
+  useEffect(() => {
+    refetch();
+    setNoOfPosts(data?.postsByCategory.length);
+  }, [refetch, data?.postsByCategory.length]);
 
   if (loading) {
     return (
@@ -74,6 +87,16 @@ const Discussions = () => {
       {data.postsByCategory.map((post) => (
         <PostPreview key={post.id} post={post} />
       ))}
+      {noOfPosts < 5 && (
+        <Button
+          onClick={() => {
+            setCounter((prev) => prev - 10);
+          }}
+        >
+          Back
+        </Button>
+      )}
+      <Button onClick={() => setCounter((prev) => prev + 10)}>More</Button>
     </Layout>
   );
 };
