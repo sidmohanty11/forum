@@ -5,7 +5,7 @@ import { CREATE_COMMENT } from "../lib/createComment";
 import { useMutation } from "@apollo/client";
 import { UserContext } from "../context/UserContext";
 
-const CommentBox = ({ postId }) => {
+const CommentBox = ({ postId, refetch }) => {
   const { userId, tokenIsPresent } = useContext(UserContext);
   const isUserPresent = userId && tokenIsPresent;
   const [value, setValue] = useState("");
@@ -19,6 +19,8 @@ const CommentBox = ({ postId }) => {
     createComment({
       variables: { comment: { content: value, postId } },
     });
+
+    refetch();
   }
   return (
     <Box>

@@ -9,7 +9,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import Layout from "../components/Layout";
@@ -21,11 +21,15 @@ import UserEditModal from "../components/UserEditModal";
 const Profile = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { id } = useParams();
-  const { data, loading, error } = useQuery(GET_PROFILE, {
+  const { data, loading, error, refetch } = useQuery(GET_PROFILE, {
     variables: {
       userId: id,
     },
   });
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   if (loading) {
     return (

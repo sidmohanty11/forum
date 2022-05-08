@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Layout from "../components/Layout";
 import PostPreview from "../components/PostPreview";
 import { useQuery } from "@apollo/client";
@@ -12,8 +12,12 @@ import { UserContext } from "../context/UserContext";
 const Home = () => {
   const { userId } = useContext(UserContext);
   const isUserPresent = userId && localStorage.getItem("token");
-  const { data, error, loading } = useQuery(GET_POSTS);
+  const { data, error, loading, refetch } = useQuery(GET_POSTS);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   if (loading) {
     return (

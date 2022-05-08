@@ -78,13 +78,13 @@ const UserEditModal = ({ isOpen, onClose }) => {
                   },
                 },
               });
-              if (data.signup.userErrors.length) {
+              if (data.profile.userErrors.length) {
                 actions.setErrors({
-                  year: data.signup.userErrors[0].message,
-                  branch: data.signup.userErrors[0].message,
-                  bio: data.signup.userErrors[0].message,
-                  regNo: data.signup.userErrors[0].message,
-                  avatarUrl: data.signup.userErrors[0].message,
+                  year: data.profile.userErrors[0].message,
+                  branch: data.profile.userErrors[0].message,
+                  bio: data.profile.userErrors[0].message,
+                  regNo: data.profile.userErrors[0].message,
+                  avatarUrl: data.profile.userErrors[0].message,
                 });
                 return;
               }
@@ -103,8 +103,7 @@ const UserEditModal = ({ isOpen, onClose }) => {
                         {...field}
                         type="text"
                         id="regNo"
-                        placeholder="Registration Number"
-                        value={profileInfo.regNo}
+                        placeholder={profileInfo.regNo}
                       />
                       <Text color="red.500">{form.errors.regNo}</Text>
                     </FormControl>
@@ -120,8 +119,7 @@ const UserEditModal = ({ isOpen, onClose }) => {
                         {...field}
                         type="text"
                         id="bio"
-                        placeholder="Bio"
-                        value={profileInfo.bio}
+                        placeholder={profileInfo.bio}
                       />
                       <Text color="red.500">{form.errors.bio}</Text>
                     </FormControl>
@@ -137,8 +135,7 @@ const UserEditModal = ({ isOpen, onClose }) => {
                         {...field}
                         type="text"
                         id="avatarUrl"
-                        placeholder="Avatar URL"
-                        value={profileInfo.avatarUrl}
+                        placeholder={profileInfo.avatarUrl}
                       />
                       <Text color="red.500">{form.errors.avatarUrl}</Text>
                     </FormControl>
@@ -152,9 +149,8 @@ const UserEditModal = ({ isOpen, onClose }) => {
                       </FormLabel>
                       <Select
                         {...field}
-                        placeholder="Select Branch"
                         id="branch"
-                        value={profileInfo.branch}
+                        placeholder={profileInfo.branch}
                       >
                         (
                         {BRANCHES.map((branch) => (
@@ -176,9 +172,8 @@ const UserEditModal = ({ isOpen, onClose }) => {
                       </FormLabel>
                       <Select
                         {...field}
-                        placeholder="Select Year"
                         id="year"
-                        value={profileInfo.year}
+                        placeholder={profileInfo.year}
                       >
                         <option value="1st year">1st year</option>
                         <option value="2nd year">2nd year</option>

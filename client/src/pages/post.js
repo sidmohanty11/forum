@@ -9,7 +9,7 @@ import { UPDATE_POST } from "../lib/updatePost";
 import { DELETE_POST } from "../lib/deletePost";
 import { LIKE_OR_DISLIKE_POST } from "../lib/likeOrDislikePost";
 import { useMutation, useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CommentBox from "../components/CommentBox";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { UserContext } from "../context/UserContext";
@@ -22,11 +22,12 @@ const colourSelectionForCategories = {
 };
 
 const Post = () => {
+  const navigate = useNavigate();
   const [editMode, setEditMode] = useState(false);
   const [value, setValue] = useState("");
   const { userId } = useContext(UserContext);
   const { id } = useParams();
-  const { data, error, loading } = useQuery(GET_POSTS_BY_ID, {
+  const { data, error, loading, refetch } = useQuery(GET_POSTS_BY_ID, {
     variables: { id },
   });
   const [updatePost] = useMutation(UPDATE_POST);
@@ -38,6 +39,10 @@ const Post = () => {
       setValue(data.postById.content);
     }
   }, [loading, data]);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   function editPost() {
     if (!value || !userId) {
@@ -55,6 +60,8 @@ const Post = () => {
       },
     });
 
+    refetch();
+
     setEditMode(false);
   }
 
@@ -64,6 +71,8 @@ const Post = () => {
     }
 
     deletePost({ variables: { postId: id } });
+
+    navigate("/");
   }
 
   function likeOrDislikePost() {
@@ -76,6 +85,8 @@ const Post = () => {
         postId: id,
       },
     });
+
+    refetch();
   }
 
   if (loading) {
@@ -152,7 +163,7 @@ const Post = () => {
               {data.postById.likes.length} likes
             </Text>
           </Box>
-          <CommentBox postId={id} />
+          <CommentBox postId={id} refetch={refetch} />
           {data.postById.comments.map((comment) => (
             <Comment key={comment.id} comment={comment} postId={id} />
           ))}
