@@ -51,7 +51,7 @@ export default function Comment({ comment, postId }) {
     <Stack p="4" boxShadow="lg" m="4" borderRadius="sm">
       <Stack direction="row" alignItems="center">
         <Box display={"flex"} experimental_spaceX={3}>
-          <Avatar />
+          <Avatar src={comment.user.profile.avatarUrl} />
           <Box>
             <Link to={`/users/${comment.user.id}`}>
               <Text fontWeight="bold">{comment.user.name}</Text>

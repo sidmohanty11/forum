@@ -78,13 +78,13 @@ const UserEditModal = ({ isOpen, onClose }) => {
                   },
                 },
               });
-              if (data.profile.userErrors.length) {
+              if (data.updateUser.userErrors.length) {
                 actions.setErrors({
-                  year: data.profile.userErrors[0].message,
-                  branch: data.profile.userErrors[0].message,
-                  bio: data.profile.userErrors[0].message,
-                  regNo: data.profile.userErrors[0].message,
-                  avatarUrl: data.profile.userErrors[0].message,
+                  year: data.updateUser.userErrors[0].message,
+                  branch: data.updateUser.userErrors[0].message,
+                  bio: data.updateUser.userErrors[0].message,
+                  regNo: data.updateUser.userErrors[0].message,
+                  avatarUrl: data.updateUser.userErrors[0].message,
                 });
                 return;
               }
