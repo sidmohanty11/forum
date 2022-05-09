@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
-import { Stack, Text, Avatar, Button } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { Stack, Text, Avatar, Button, Box } from "@chakra-ui/react";
 import MDEditor from "@uiw/react-md-editor";
 import { useMutation } from "@apollo/client";
 import { DELETE_COMMENT } from "../lib/deleteComment";
@@ -7,6 +8,7 @@ import { UPDATE_COMMENT } from "../lib/updateComment";
 import { UserContext } from "../context/UserContext";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import MarkdownEditor from "./MarkdownEditor";
+import moment from "moment";
 
 export default function Comment({ comment, postId }) {
   const [editMode, setEditMode] = useState(false);
@@ -48,28 +50,33 @@ export default function Comment({ comment, postId }) {
   return (
     <Stack p="4" boxShadow="lg" m="4" borderRadius="sm">
       <Stack direction="row" alignItems="center">
-        <Avatar />
-        <Text fontWeight="semibold">{comment.user.name}</Text>
-        {userId === comment.user.id && <DeleteIcon onClick={removeComment} />}
+        <Box display={"flex"} experimental_spaceX={3}>
+          <Avatar />
+          <Box>
+            <Link to={`/users/${comment.user.id}`}>
+              <Text fontWeight="bold">{comment.user.name}</Text>
+            </Link>
+            <Text color={"gray.500"}>
+              {moment(Number(comment.createdAt)).fromNow()}
+            </Text>
+          </Box>
+        </Box>
         {userId === comment.user.id && (
-          <EditIcon onClick={() => setEditMode((prev) => !prev)} />
+          <Box display={"flex"} experimental_spaceX={4}>
+            <DeleteIcon onClick={removeComment} />
+            <EditIcon onClick={() => setEditMode((prev) => !prev)} />
+          </Box>
         )}
       </Stack>
       <Stack>
         {!editMode ? (
-          <MDEditor.Markdown
-            style={{ backgroundColor: "#fefefe", color: "black" }}
-            source={comment.content}
-          />
+          <MDEditor.Markdown source={comment.content} />
         ) : (
           <>
             <MarkdownEditor value={value} setValue={setValue} />
             <Button onClick={changeComment}>Submit</Button>
           </>
         )}
-        <Text>
-          date: {new Date(Number(comment.createdAt)).toLocaleString()}
-        </Text>
       </Stack>
     </Stack>
   );

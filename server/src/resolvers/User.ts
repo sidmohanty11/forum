@@ -20,4 +20,13 @@ export const User = {
       orderBy: [{ createdAt: "desc" }],
     });
   },
+  profile: async (
+    parent: UserParent,
+    _: any,
+    { prisma, userInfo }: Context
+  ) => {
+    return await prisma.profile.findUnique({
+      where: { userId: parent.id },
+    });
+  },
 };

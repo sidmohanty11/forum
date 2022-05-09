@@ -49,6 +49,7 @@ export const typeDefs = gql`
     name: String!
     email: String!
     posts: [Post]
+    profile: Profile!
   }
 
   type Profile {

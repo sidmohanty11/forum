@@ -4,6 +4,7 @@ import MarkdownEditor from "./MarkdownEditor";
 import { CREATE_COMMENT } from "../lib/createComment";
 import { useMutation } from "@apollo/client";
 import { UserContext } from "../context/UserContext";
+import { Link } from "react-router-dom";
 
 const CommentBox = ({ postId, refetch }) => {
   const { userId, tokenIsPresent } = useContext(UserContext);
@@ -28,10 +29,14 @@ const CommentBox = ({ postId, refetch }) => {
         <>
           <Text>Add comment:</Text>
           <MarkdownEditor value={value} setValue={setValue} />
-          <Button onClick={addComment}>Submit</Button>
+          <Button mt={2} onClick={addComment}>
+            Submit
+          </Button>
         </>
       ) : (
-        <Text>Login to Comment</Text>
+        <Link to={"/login"}>
+          <Text>Login to Comment</Text>
+        </Link>
       )}
     </Box>
   );

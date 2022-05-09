@@ -23,7 +23,11 @@ import UserEditModal from "./UserEditModal";
 import { useQuery } from "@apollo/client";
 import { GET_PROFILE } from "../lib/getProfile";
 
-const NavLink = ({ children, href }) => <Link to={href}>{children}</Link>;
+const NavLink = ({ children, href }) => (
+  <Link to={href}>
+    <Button>{children}</Button>
+  </Link>
+);
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -81,9 +85,9 @@ const Navbar = () => {
                   </Center>
                   <br />
                   <MenuDivider />
-                  <NavLink href={`/users/${userId}`}>
+                  <Link to={`/users/${userId}`}>
                     <MenuItem>Your Profile</MenuItem>
-                  </NavLink>
+                  </Link>
                   <MenuItem onClick={onOpen}>
                     <UserEditModal isOpen={isOpen} onClose={onClose} />
                     Account Settings
@@ -92,10 +96,10 @@ const Navbar = () => {
                 </MenuList>
               </Menu>
             ) : (
-              <>
+              <Box experimental_spaceX={2}>
                 <NavLink href={"/login"}>Login</NavLink>
                 <NavLink href={"/register"}>Register</NavLink>
-              </>
+              </Box>
             )}
           </Stack>
         </Flex>

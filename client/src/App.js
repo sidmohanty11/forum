@@ -12,9 +12,11 @@ import Questions from "./pages/questions";
 import Profile from "./pages/profile";
 import NotFound from "./pages/404";
 import { useAuth } from "./hooks/use-auth";
+import { useColorModeEditor } from "./hooks/use-color-mode-editor";
 import { UserContext } from "./context/UserContext";
 
 function App() {
+  useColorModeEditor();
   const { tokenIsPresent, userId } = useAuth();
   return (
     <UserContext.Provider value={{ userId, tokenIsPresent }}>

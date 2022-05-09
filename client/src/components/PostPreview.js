@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { FiHeart } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const colourSelectionForCategories = {
   discussion: "red.500",
@@ -67,7 +68,7 @@ const PostPreview = ({ post }) => {
             <Stack direction={"column"} spacing={0} fontSize={"sm"}>
               <Text fontWeight={600}>{post.user.name}</Text>
               <Text color={"gray.500"}>
-                {new Date(Number(post.createdAt)).toLocaleString()}
+                {moment(Number(post.createdAt)).fromNow()}
               </Text>
             </Stack>
           </Stack>
