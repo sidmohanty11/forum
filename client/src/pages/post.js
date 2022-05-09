@@ -85,12 +85,12 @@ const Post = () => {
     navigate("/");
   }
 
-  function likeOrDislikePost() {
+  async function likeOrDislikePost() {
     if (!userId) {
       return;
     }
 
-    likePost({
+    await likePost({
       variables: {
         postId: id,
       },

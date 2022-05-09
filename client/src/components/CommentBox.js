@@ -12,14 +12,16 @@ const CommentBox = ({ postId, refetch }) => {
   const [value, setValue] = useState("");
   const [createComment] = useMutation(CREATE_COMMENT);
 
-  function addComment() {
+  async function addComment() {
     if (value === "") {
       return;
     }
 
-    createComment({
+    await createComment({
       variables: { comment: { content: value, postId } },
     });
+
+    setValue("");
 
     refetch();
   }

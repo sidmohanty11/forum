@@ -276,16 +276,6 @@ export const postResolvers = {
       };
     }
 
-    const error = await canUserMutatePost({
-      userId: userInfo.userId,
-      postId: Number(postId),
-      prisma,
-    });
-
-    if (error) {
-      return error;
-    }
-
     const thePost = await prisma.post.findUnique({
       where: { id: Number(postId) },
     });
