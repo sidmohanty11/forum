@@ -1,3 +1,4 @@
+import { profileLoader } from "../loaders/profileLoader";
 import { Context } from "../types";
 
 interface UserParent {
@@ -25,6 +26,7 @@ export const User = {
     _: any,
     { prisma, userInfo }: Context
   ) => {
+    // return profileLoader.load(parent.id);
     return await prisma.profile.findUnique({
       where: { userId: parent.id },
     });

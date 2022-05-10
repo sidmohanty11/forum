@@ -1,12 +1,17 @@
 import { Box, Text, Button } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { FC, useContext, useState } from "react";
 import MarkdownEditor from "./MarkdownEditor";
 import { CREATE_COMMENT } from "../lib/createComment";
 import { useMutation } from "@apollo/client";
 import { UserContext } from "../context/UserContext";
 import { Link } from "react-router-dom";
 
-const CommentBox = ({ postId, refetch }) => {
+type CommentBoxProps = {
+  postId: string | undefined
+  refetch: () => {}
+}
+
+const CommentBox: FC<CommentBoxProps> = ({ postId, refetch }) => {
   const { userId, tokenIsPresent } = useContext(UserContext);
   const isUserPresent = userId && tokenIsPresent;
   const [value, setValue] = useState("");

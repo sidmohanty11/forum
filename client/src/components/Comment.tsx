@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Stack, Text, Avatar, Button, Box } from "@chakra-ui/react";
 import MDEditor from "@uiw/react-md-editor";
@@ -9,8 +9,14 @@ import { UserContext } from "../context/UserContext";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import MarkdownEditor from "./MarkdownEditor";
 import moment from "moment";
+import { CommentType } from "../shared/CommentType";
 
-export default function Comment({ comment, postId }) {
+type CommentProps = {
+  comment: CommentType
+  postId: string | undefined
+}
+
+const Comment: FC<CommentProps> = ({ comment, postId }) => {
   const [editMode, setEditMode] = useState(false);
   const [value, setValue] = useState(comment.content);
   const [deleteComment] = useMutation(DELETE_COMMENT);
@@ -81,3 +87,5 @@ export default function Comment({ comment, postId }) {
     </Stack>
   );
 }
+
+export default Comment

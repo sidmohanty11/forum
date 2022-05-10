@@ -15,6 +15,8 @@ import CommentBox from "../components/CommentBox";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { UserContext } from "../context/UserContext";
 import MarkdownEditor from "../components/MarkdownEditor";
+import { CommentType } from "../shared/CommentType";
+import { PostType } from "../shared/PostType";
 
 const colourSelectionForCategories = {
   discussion: "red.500",
@@ -36,9 +38,9 @@ const Post = () => {
   const [likePost] = useMutation(LIKE_OR_DISLIKE_POST);
 
   const [isLiked, setIsLiked] = useState(
-    data?.postById.likes.find((id) => id === userId)
+    data?.postById.likes.find((id: string) => id === userId)
   );
-  const [totalLikes, setTotalLikes] = useState(data?.postById.likes.length);
+  const [totalLikes, setTotalLikes] = useState<number>(data?.postById.likes.length);
 
   useEffect(() => {
     if (!loading && !error) {
@@ -49,7 +51,7 @@ const Post = () => {
   useEffect(() => {
     refetch();
     if (!loading && !error) {
-      setIsLiked(data.postById.likes.find((id) => id === userId));
+      setIsLiked(data.postById.likes.find((id: string) => id === userId));
       setTotalLikes(data.postById.likes.length);
     }
   }, [refetch, data, userId, loading, error]);
@@ -120,7 +122,7 @@ const Post = () => {
           fontSize="lg"
           textAlign={"center"}
           p={4}
-          bgColor={colourSelectionForCategories[data.postById.category]}
+          bgColor={colourSelectionForCategories[data.postById.category as PostType['category']]}
         >
           {data.postById.category.toUpperCase()}
         </Text>
@@ -184,7 +186,7 @@ const Post = () => {
           <Text style={{ fontWeight: "bold" }}>{totalLikes} likes</Text>
         </Box>
         <CommentBox postId={id} refetch={refetch} />
-        {data.postById.comments.map((comment) => (
+        {data.postById.comments.map((comment: CommentType) => (
           <Comment key={comment.id} comment={comment} postId={id} />
         ))}
       </Box>

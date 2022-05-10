@@ -14,15 +14,24 @@ import {
   Text,
   Select,
 } from "@chakra-ui/react";
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, FormikProps } from "formik";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { GET_PROFILE } from "../lib/getProfile";
 import { BRANCHES } from "../consts/branch";
 import { validateRegNo, validateStringPresent } from "../utils/validateAuth";
 import { UPDATE_USER } from "../lib/updateUser";
+import { FormikTypes } from "../shared/FormikTypes";
 
-const UserEditModal = ({ isOpen, onClose }) => {
+type UserEditModalValues = {
+  avatarUrl: string;
+  bio: string;
+  branch: string;
+  year: string;
+  regNo: string;
+}
+
+const UserEditModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
   const [profileInfo, setProfileInfo] = useState({
     avatarUrl: "",
     bio: "",
@@ -91,10 +100,10 @@ const UserEditModal = ({ isOpen, onClose }) => {
               onClose();
             }}
           >
-            {(props) => (
+            {(props: FormikProps<UserEditModalValues>) => (
               <Form>
                 <Field name="regNo" validate={validateRegNo}>
-                  {({ field, form }) => (
+                  {({ field, form }: FormikTypes) => (
                     <FormControl>
                       <FormLabel mt={4} htmlFor="regNo">
                         Registration Number
@@ -110,7 +119,7 @@ const UserEditModal = ({ isOpen, onClose }) => {
                   )}
                 </Field>
                 <Field name="bio" validate={validateStringPresent}>
-                  {({ field, form }) => (
+                  {({ field, form }: FormikTypes) => (
                     <FormControl>
                       <FormLabel mt={4} htmlFor="bio">
                         Bio
@@ -126,7 +135,7 @@ const UserEditModal = ({ isOpen, onClose }) => {
                   )}
                 </Field>
                 <Field name="avatarUrl" validate={validateStringPresent}>
-                  {({ field, form }) => (
+                  {({ field, form }: FormikTypes) => (
                     <FormControl>
                       <FormLabel mt={4} htmlFor="avatarUrl">
                         Avatar URL
@@ -142,7 +151,7 @@ const UserEditModal = ({ isOpen, onClose }) => {
                   )}
                 </Field>
                 <Field name="branch" validate={validateStringPresent}>
-                  {({ field, form }) => (
+                  {({ field, form }: FormikTypes) => (
                     <FormControl>
                       <FormLabel mt={4} htmlFor="branch">
                         Branch
@@ -165,7 +174,7 @@ const UserEditModal = ({ isOpen, onClose }) => {
                   )}
                 </Field>
                 <Field name="year" validate={validateStringPresent}>
-                  {({ field, form }) => (
+                  {({ field, form }: FormikTypes) => (
                     <FormControl>
                       <FormLabel mt={4} htmlFor="year">
                         Year

@@ -16,6 +16,7 @@ import Layout from "../components/Layout";
 import PostPreview from "../components/PostPreview";
 import { GET_PROFILE } from "../lib/getProfile";
 import UserEditModal from "../components/UserEditModal";
+import { PostType } from "../shared/PostType";
 
 // user/:id profile page
 const Profile = () => {
@@ -82,7 +83,7 @@ const Profile = () => {
           <UserEditModal isOpen={isOpen} onClose={onClose} />
         </Box>
       </Box>
-      {profile.user.posts.map((post) => (
+      {profile.user.posts.map((post: PostType) => (
         <PostPreview key={post.id} post={post} />
       ))}
     </Layout>

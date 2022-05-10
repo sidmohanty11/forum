@@ -22,19 +22,18 @@ function App() {
     <UserContext.Provider value={{ userId, tokenIsPresent }}>
       <ChakraProvider>
         <Routes>
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route path="*" element={<NotFound />} />
-          <Route exact index path="/" element={<Home />} />
-          <Route exact path="/new" element={<NewPost />} />
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route exact path="/posts/:id" element={<Post />} />
-          <Route exact path="/blog" element={<Blogs />} />
-          <Route exact path="/discussion" element={<Discussions />} />
-          <Route exact path="/question" element={<Questions />} />
-          <Route exact path="/trending" element={<Trending />} />
-          <Route exact path="/users/:id" element={<Profile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/new" element={<NewPost />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/posts/:id" element={<Post />} />
+          <Route path="/blog" element={<Blogs />} />
+          <Route path="/discussion" element={<Discussions />} />
+          <Route path="/question" element={<Questions />} />
+          <Route path="/trending" element={<Trending />} />
+          <Route path="/users/:id" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </ChakraProvider>

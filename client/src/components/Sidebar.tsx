@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import {
   IconButton,
   Box,
@@ -20,6 +20,7 @@ import {
   FiAlertCircle,
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { IconType } from "react-icons";
 
 const LinkItems = [
   { name: "Home", icon: FiHome, href: "/" },
@@ -29,12 +30,13 @@ const LinkItems = [
   { name: "Questions", icon: FiAlertCircle, href: "/question" },
 ];
 
-const Sidebar = ({ children }) => {
+const Sidebar: FC = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={useColorModeValue("white", "gray.900")}>
       <SidebarContent
         onClose={() => onClose}
+        //@ts-ignore
         display={{ base: "none", md: "block" }}
       />
       <Drawer
@@ -51,7 +53,9 @@ const Sidebar = ({ children }) => {
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
-      <MobileNav display={{ base: "flex", md: "none" }} onOpen={onOpen} />
+      <MobileNav
+        //@ts-ignore
+        display={{ base: "flex", md: "none" }} onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
@@ -61,7 +65,7 @@ const Sidebar = ({ children }) => {
 
 export default Sidebar;
 
-const SidebarContent = ({ onClose, ...rest }) => {
+const SidebarContent = ({ onClose, ...rest }: { onClose: () => void }) => {
   return (
     <Box
       bg={useColorModeValue("white", "gray.900")}
@@ -87,12 +91,11 @@ const SidebarContent = ({ onClose, ...rest }) => {
   );
 };
 
-const NavItem = ({ icon, children, href, ...rest }) => {
+const NavItem: FC<{ icon: IconType, href: string }> = ({ icon, children, href, ...rest }) => {
   return (
     <Link
       to={href}
       style={{ textDecoration: "none" }}
-      _focus={{ boxShadow: "none" }}
     >
       <Flex
         align="center"
@@ -123,7 +126,7 @@ const NavItem = ({ icon, children, href, ...rest }) => {
   );
 };
 
-const MobileNav = ({ onOpen, ...rest }) => {
+const MobileNav = ({ onOpen, ...rest }: { onOpen: () => void }) => {
   return (
     <Flex
       ml={{ base: 0, md: 60 }}

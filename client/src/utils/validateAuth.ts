@@ -1,4 +1,4 @@
-export const validateEmail = (value) => {
+export const validateEmail = (value: string) => {
   let error = "";
 
   if (!value) {
@@ -10,7 +10,7 @@ export const validateEmail = (value) => {
   return error;
 };
 
-export const validatePassword = (value) => {
+export const validatePassword = (value: string) => {
   let error = "";
   if (!value) {
     error = "Required";
@@ -23,7 +23,7 @@ export const validatePassword = (value) => {
   return error;
 };
 
-export const validateStringPresent = (value) => {
+export const validateStringPresent = (value: string) => {
   let error = "";
   if (!value) {
     error = "Required";
@@ -31,7 +31,7 @@ export const validateStringPresent = (value) => {
   return error;
 };
 
-export const validateRegNo = (value) => {
+export const validateRegNo = (value: string) => {
   let error = "";
   if (!value) {
     error = "Required";

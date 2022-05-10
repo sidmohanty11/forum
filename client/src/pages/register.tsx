@@ -20,6 +20,7 @@ import {
   validateRegNo,
   validateStringPresent,
 } from "../utils/validateAuth";
+import { FormikTypes } from "../shared/FormikTypes";
 
 const Register = () => {
   const [signup, { loading }] = useMutation(SIGNUP);
@@ -75,7 +76,7 @@ const Register = () => {
           {(props) => (
             <Form>
               <Field name="name" validate={validateStringPresent}>
-                {({ field, form }) => (
+                {({ field, form }: FormikTypes) => (
                   <FormControl>
                     <FormLabel mt={4} htmlFor="name">
                       Name
@@ -91,7 +92,7 @@ const Register = () => {
                 )}
               </Field>
               <Field name="regNo" validate={validateRegNo}>
-                {({ field, form }) => (
+                {({ field, form }: FormikTypes) => (
                   <FormControl>
                     <FormLabel mt={4} htmlFor="regNo">
                       Registration Number
@@ -107,7 +108,7 @@ const Register = () => {
                 )}
               </Field>
               <Field name="bio" validate={validateStringPresent}>
-                {({ field, form }) => (
+                {({ field, form }: FormikTypes) => (
                   <FormControl>
                     <FormLabel mt={4} htmlFor="bio">
                       Bio
@@ -118,7 +119,7 @@ const Register = () => {
                 )}
               </Field>
               <Field name="email" validate={validateEmail}>
-                {({ field, form }) => (
+                {({ field, form }: FormikTypes) => (
                   <FormControl>
                     <FormLabel mt={4} htmlFor="email">
                       Email
@@ -134,7 +135,7 @@ const Register = () => {
                 )}
               </Field>
               <Field name="password" validate={validatePassword}>
-                {({ field, form }) => (
+                {({ field, form }: FormikTypes) => (
                   <FormControl>
                     <FormLabel mt={4} htmlFor="password">
                       Password

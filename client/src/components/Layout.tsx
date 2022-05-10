@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import { Box, Center, Input } from "@chakra-ui/react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 
-const Layout = ({ children }) => {
+const Layout: FC = ({ children }) => {
   return (
     <Box>
       <Navbar />

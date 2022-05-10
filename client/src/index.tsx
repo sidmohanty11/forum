@@ -13,7 +13,7 @@ import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter } from "react-router-dom";
 
 // when not using nginx use, http://localhost:4000/graphql
-const httpLink = createHttpLink({ uri: "/graphql" });
+const httpLink = createHttpLink({ uri: "http://localhost:4000/graphql" });
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("token");
@@ -31,7 +31,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
     <BrowserRouter>

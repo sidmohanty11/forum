@@ -12,8 +12,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import PostPreview from "../components/PostPreview";
 import { GET_POSTS_BY_CATEGORY } from "../lib/getPostsByCategory";
+import { PostType } from "../shared/PostType";
 
-const Questions = () => {
+const Discussions = () => {
   const [counter, setCounter] = useState(0);
   const location = useLocation();
   const category = location.pathname.replace("/", "");
@@ -84,7 +85,7 @@ const Questions = () => {
         aria-label="Add to friends"
         icon={<AddIcon />}
       />
-      {data.postsByCategory.map((post) => (
+      {data.postsByCategory.map((post: PostType) => (
         <PostPreview key={post.id} post={post} />
       ))}
       {noOfPosts < 5 && (
@@ -101,4 +102,4 @@ const Questions = () => {
   );
 };
 
-export default Questions;
+export default Discussions;

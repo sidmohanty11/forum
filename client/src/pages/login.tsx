@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../lib/login";
 import { validateEmail, validatePassword } from "../utils/validateAuth";
+import { FormikTypes } from "../shared/FormikTypes";
 
 const Login = () => {
   const [signin, { loading }] = useMutation(LOGIN);
@@ -55,7 +56,7 @@ const Login = () => {
           {({ errors, isSubmitting }) => (
             <Form>
               <Field name="email" validate={validateEmail}>
-                {({ field, form }) => (
+                {({ field, form }: FormikTypes) => (
                   <FormControl>
                     <FormLabel mt={4} htmlFor="email">
                       Email
@@ -71,7 +72,7 @@ const Login = () => {
                 )}
               </Field>
               <Field name="password" validate={validatePassword}>
-                {({ field, form }) => (
+                {({ field, form }: FormikTypes) => (
                   <FormControl>
                     <FormLabel mt={4} htmlFor="password">
                       Password

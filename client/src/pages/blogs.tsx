@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import Layout from "../components/Layout";
-import PostPreview from "../components/PostPreview";
 import { useQuery } from "@apollo/client";
+import { AddIcon } from "@chakra-ui/icons";
 import {
   Button,
   Center,
@@ -9,26 +7,27 @@ import {
   IconButton,
   Skeleton,
 } from "@chakra-ui/react";
-import { GET_POSTS } from "../lib/getPosts";
-import { AddIcon } from "@chakra-ui/icons";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Layout from "../components/Layout";
+import PostPreview from "../components/PostPreview";
+import { GET_POSTS_BY_CATEGORY } from "../lib/getPostsByCategory";
+import { PostType } from "../shared/PostType";
 
-// home page
-const Home = () => {
+const Blogs = () => {
   const [counter, setCounter] = useState(0);
-  const { userId } = useContext(UserContext);
-  const isUserPresent = userId && localStorage.getItem("token");
-  const { data, error, loading, refetch } = useQuery(GET_POSTS, {
-    variables: { skip: counter },
+  const location = useLocation();
+  const category = location.pathname.replace("/", "");
+  const { data, error, loading, refetch } = useQuery(GET_POSTS_BY_CATEGORY, {
+    variables: { category, skip: counter },
   });
   const navigate = useNavigate();
-  const [noOfPosts, setNoOfPosts] = useState(data?.posts.length);
+  const [noOfPosts, setNoOfPosts] = useState(data?.postsByCategory.length);
 
   useEffect(() => {
     refetch();
-    setNoOfPosts(data?.posts.length);
-  }, [refetch, data?.posts.length]);
+    setNoOfPosts(data?.postsByCategory.length);
+  }, [refetch, data?.postsByCategory.length]);
 
   if (loading) {
     return (
@@ -81,14 +80,12 @@ const Home = () => {
 
   return (
     <Layout>
-      {isUserPresent && (
-        <IconButton
-          onClick={() => navigate("/new")}
-          aria-label="Add to friends"
-          icon={<AddIcon />}
-        />
-      )}
-      {data.posts.map((post) => (
+      <IconButton
+        onClick={() => navigate("/new")}
+        aria-label="Add to friends"
+        icon={<AddIcon />}
+      />
+      {data.postsByCategory.map((post: PostType) => (
         <PostPreview key={post.id} post={post} />
       ))}
       {noOfPosts < 5 && (
@@ -105,4 +102,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Blogs;

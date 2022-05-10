@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { FC, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
@@ -23,7 +23,11 @@ import UserEditModal from "./UserEditModal";
 import { useQuery } from "@apollo/client";
 import { GET_PROFILE } from "../lib/getProfile";
 
-const NavLink = ({ children, href }) => (
+type NavLinkProps = {
+  href: string
+}
+
+const NavLink: FC<NavLinkProps> = ({ children, href }) => (
   <Link to={href}>
     <Button>{children}</Button>
   </Link>

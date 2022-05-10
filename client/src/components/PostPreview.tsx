@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import {
   Box,
   Center,
@@ -10,6 +10,7 @@ import {
 import { FiHeart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { PostType } from "../shared/PostType";
 
 const colourSelectionForCategories = {
   discussion: "red.500",
@@ -23,7 +24,12 @@ const colourSelectionForLikesBg = {
   question: "pink.200",
 };
 
-const PostPreview = ({ post }) => {
+type PostPreviewProps = {
+  post: PostType
+}
+
+const PostPreview: FC<PostPreviewProps> = ({ post }) => {
+  console.log(post)
   return (
     <Center py={6}>
       <Box

@@ -17,6 +17,7 @@ import { POST_PUBLISH } from "../lib/postPublish";
 import { POST_UNPUBLISH } from "../lib/postUnpublish";
 import { useMutation } from "@apollo/client";
 import { validateStringPresent } from "../utils/validateAuth";
+import { FormikTypes } from "../shared/FormikTypes";
 
 const NewPost = () => {
   const [content, setContent] = useState("");
@@ -75,7 +76,7 @@ const NewPost = () => {
           {(props) => (
             <Form>
               <Field name="title" validate={validateStringPresent}>
-                {({ field, form }) => (
+                {({ field, form }: FormikTypes) => (
                   <FormControl>
                     <FormLabel htmlFor="title">
                       Title:
@@ -86,7 +87,7 @@ const NewPost = () => {
                 )}
               </Field>
               <Field name="category" validate={validateStringPresent}>
-                {({ field, form }) => (
+                {({ field, form }: FormikTypes) => (
                   <FormControl>
                     <FormLabel htmlFor="category">
                       Category:
@@ -104,7 +105,7 @@ const NewPost = () => {
                 )}
               </Field>
               <Field name="content">
-                {({ field, form }) => (
+                {({ field, form }: FormikTypes) => (
                   <FormControl>
                     <FormLabel htmlFor="content">
                       Content:
