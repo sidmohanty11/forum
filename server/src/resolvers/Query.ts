@@ -64,7 +64,7 @@ export const Query = {
     { search }: { search: any },
     { prisma }: Context
   ) => {
-    return await prisma.post.findMany({
+    const contentSearch = await prisma.post.findMany({
       where: {
         published: true,
         content: {
@@ -78,5 +78,25 @@ export const Query = {
         },
       ],
     });
+    const titleSearch = await prisma.post.findMany({
+      where: {
+        published: true,
+        title: {
+          //@ts-ignore
+          search,
+        },
+      },
+      orderBy: [
+        {
+          createdAt: "desc",
+        },
+      ],
+    });
+    const total = [...titleSearch, ...contentSearch];
+    const ids = total.map((post) => post.id);
+    const filtered = total.filter(
+      ({ id }, index) => !ids.includes(id, index + 1)
+    );
+    return filtered;
   },
 };

@@ -29,7 +29,6 @@ type PostPreviewProps = {
 }
 
 const PostPreview: FC<PostPreviewProps> = ({ post }) => {
-  console.log(post)
   return (
     <Center py={6}>
       <Box
