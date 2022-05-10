@@ -21,7 +21,9 @@ const Comment: FC<CommentProps> = ({ comment, postId }) => {
   const [value, setValue] = useState(comment.content);
   const [deleteComment] = useMutation(DELETE_COMMENT);
   const [updateComment] = useMutation(UPDATE_COMMENT);
-  const { userId } = useContext(UserContext);
+  const { userId, tokenIsPresent } = useContext(UserContext);
+
+  const userIsPresent = userId && tokenIsPresent
 
   function removeComment() {
     if (!userId) {
@@ -67,7 +69,7 @@ const Comment: FC<CommentProps> = ({ comment, postId }) => {
             </Text>
           </Box>
         </Box>
-        {userId === comment.user.id && (
+        {userIsPresent && userId === comment.user.id && (
           <Box display={"flex"} experimental_spaceX={4}>
             <DeleteIcon onClick={removeComment} />
             <EditIcon onClick={() => setEditMode((prev) => !prev)} />
