@@ -4,6 +4,7 @@ services:
     image: "postgres:latest"
     environment:
       - POSTGRES_PASSWORD=postgres
+    restart: always
   nginx:
     depends_on:
       - api
@@ -22,7 +23,7 @@ services:
       - /app/node_modules
       - ./server:/app
     environment:
-      - DATABASE_URL=postgres://postgres:postgres@db:5432/mydb?sslmode=disable
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/mydb?sslmode=disable?connect_timeout=300
   client:
     stdin_open: true
     environment:
