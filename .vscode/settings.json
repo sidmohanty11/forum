@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/df5d37bd-27b1-435a-b91c-d60442feb80a/resourceGroups/outr-fourms/providers/Microsoft.Web/sites/outr-fourms",
+  "appService.deploySubpath": "server"
+}
