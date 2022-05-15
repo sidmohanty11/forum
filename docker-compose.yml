@@ -4,6 +4,7 @@ services:
     image: "postgres:latest"
     environment:
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=mydb
     restart: always
   nginx:
     depends_on:
