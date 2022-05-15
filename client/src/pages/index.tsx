@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import PostPreview from "../components/PostPreview";
 import { useQuery } from "@apollo/client";
@@ -17,19 +17,22 @@ import { PostType } from "../shared/PostType";
 
 // home page
 const Home = () => {
+  const [posts, setPosts] = useState<any[]>([])
+
   const [counter, setCounter] = useState(0);
   const { userId } = useContext(UserContext);
   const isUserPresent = userId && localStorage.getItem("token");
-  const { data, error, loading, refetch } = useQuery(GET_POSTS, {
-    variables: { skip: counter },
-  });
+  const { data, error, loading, refetch } = useQuery(GET_POSTS, { variables: { skip: counter } });
   const navigate = useNavigate();
   const [noOfPosts, setNoOfPosts] = useState(data?.posts.length);
 
   useEffect(() => {
     refetch();
-    setNoOfPosts(data?.posts.length);
-  }, [refetch, data?.posts.length]);
+    if (data && data.posts) {
+      setPosts(data?.posts)
+      setNoOfPosts(data?.posts.length)
+    }
+  }, [refetch, data]);
 
   if (loading) {
     return (
@@ -89,19 +92,26 @@ const Home = () => {
           icon={<AddIcon />}
         />
       )}
-      {data.posts.map((post: PostType) => (
+      {posts.map((post: PostType) => (
         <PostPreview key={post.id} post={post} />
       ))}
-      {noOfPosts < 5 && (
+      {noOfPosts < 5 && counter !== 0 && (
         <Button
           onClick={() => {
-            setCounter((prev) => prev - 10);
+            setCounter((prev) => {
+              if (prev === 0) {
+                return 0;
+              }
+              return prev - 10
+            });
           }}
         >
           Back
         </Button>
       )}
-      <Button onClick={() => setCounter((prev) => prev + 10)}>More</Button>
+      {noOfPosts === 10 && <Button onClick={() => {
+        setCounter((prev) => prev + 10)
+      }}>Next</Button>}
     </Layout>
   );
 };

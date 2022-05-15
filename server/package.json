@@ -1,14 +1,15 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "a graphql server",
+  "description": "forum's graphql server",
   "main": "dist/index.js",
   "scripts": {
+    "build": "npx tsc",
     "dev": "nodemon --watch './**/*.ts' --exec 'ts-node' src/index.ts"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "sidmohanty11(https://github.com/sidmohanty11)",
+  "license": "MIT",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/jsonwebtoken": "^8.5.8",
@@ -22,6 +23,7 @@
     "apollo-server": "^3.6.7",
     "bcryptjs": "^2.4.3",
     "dataloader": "^2.1.0",
+    "dotenv": "^16.0.1",
     "graphql": "^16.3.0",
     "jsonwebtoken": "^8.5.1",
     "prisma": "^3.12.0",

@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { ApolloServer } from "apollo-server";
 import { typeDefs } from "./schema";
 import { Query, Mutation, Profile, Post, User, Comment } from "./resolvers";

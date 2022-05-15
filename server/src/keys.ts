@@ -1,1 +1,1 @@
-export const JWT_SECRET = "secretKeyThatNeedsToBeKeptPrivate";
+export const JWT_SECRET = process.env.JWT_SECRET ?? "thisisasecret";

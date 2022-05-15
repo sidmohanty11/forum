@@ -1,5 +1,4 @@
 import React, { FC, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
   Box,
@@ -34,7 +33,6 @@ const NavLink: FC<NavLinkProps> = ({ children, href }) => (
 );
 
 const Navbar = () => {
-  const navigate = useNavigate();
   const { userId, tokenIsPresent } = useContext(UserContext);
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -48,7 +46,7 @@ const Navbar = () => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
-    navigate("/login");
+    window.location.href = "/login"
   };
 
   return (

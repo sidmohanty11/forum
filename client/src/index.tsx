@@ -13,7 +13,7 @@ import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter } from "react-router-dom";
 
 // when not using nginx use, http://localhost:4000/graphql
-const httpLink = createHttpLink({ uri: "/graphql" });
+const httpLink = createHttpLink({ uri: "http://localhost:4000/graphql" });
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("token");
