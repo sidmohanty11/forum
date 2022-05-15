@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import {
   IconButton,
   Box,
@@ -21,6 +21,7 @@ import {
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { IconType } from "react-icons";
+import { appData } from "../utils/useappjson";
 
 const LinkItems = [
   { name: "Home", icon: FiHome, href: "/" },
@@ -146,7 +147,7 @@ const MobileNav = ({ onOpen, ...rest }: { onOpen: () => void }) => {
         icon={<FiMenu />}
       />
       <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
-        OUTR-Forums
+        {appData.college}-Forums
       </Text>
     </Flex>
   );

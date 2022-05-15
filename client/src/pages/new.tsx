@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import MarkdownEditor from "../components/MarkdownEditor";
 import Layout from "../components/Layout";
 import {
@@ -11,7 +11,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
-import { useNavigate } from "react-router-dom";
 import { CREATE_POST } from "../lib/createPost";
 import { POST_PUBLISH } from "../lib/postPublish";
 import { POST_UNPUBLISH } from "../lib/postUnpublish";
@@ -25,11 +24,10 @@ const NewPost = () => {
   const [createPost, { loading }] = useMutation(CREATE_POST);
   const [postPublish] = useMutation(POST_PUBLISH);
   const [postUnpublish] = useMutation(POST_UNPUBLISH);
-  const navigate = useNavigate();
 
   // TODO
   if (loading) {
-    <p>Loading...</p>;
+    return <Layout><p>Loading...</p></Layout>;
   }
 
   return (
@@ -70,7 +68,7 @@ const NewPost = () => {
                 },
               });
             }
-            navigate("/");
+            window.location.href = "/"
           }}
         >
           {(props) => (

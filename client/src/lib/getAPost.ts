@@ -7,6 +7,7 @@ export const GET_POSTS_BY_ID = gql`
       category
       content
       likes
+      published
       user {
         id
         name

@@ -6,6 +6,7 @@ import {
   Text,
   Stack,
   useColorModeValue,
+  Badge,
 } from "@chakra-ui/react";
 import { FiHeart } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -56,7 +57,7 @@ const PostPreview: FC<PostPreviewProps> = ({ post }) => {
               fontSize={"2xl"}
               fontFamily={"body"}
             >
-              {post.title}
+              {post.title}{!post.published && <Badge ml={2} variant='outline' colorScheme='red'>UNPUBLISHED</Badge>}
             </Heading>
           </Stack>
           <Stack mt={6} direction={"row"} spacing={4} align={"center"}>

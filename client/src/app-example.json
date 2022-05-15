@@ -1,0 +1,16 @@
+{
+  "college": "college-name",
+  "collegeUrl": "https://college-url.com",
+  "branches": [
+    "CSE",
+    "IT",
+    "EE",
+    "EIE",
+    "MECH",
+    "CIVIL",
+    "BIO",
+    "FAT",
+    "TE",
+    "B.PLAN"
+  ]
+}

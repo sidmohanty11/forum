@@ -14,9 +14,10 @@ import { CommentType } from "../shared/CommentType";
 type CommentProps = {
   comment: CommentType
   postId: string | undefined
+  refetch: () => void
 }
 
-const Comment: FC<CommentProps> = ({ comment, postId }) => {
+const Comment: FC<CommentProps> = ({ comment, postId, refetch }) => {
   const [editMode, setEditMode] = useState(false);
   const [value, setValue] = useState(comment.content);
   const [deleteComment] = useMutation(DELETE_COMMENT);
@@ -25,24 +26,26 @@ const Comment: FC<CommentProps> = ({ comment, postId }) => {
 
   const userIsPresent = userId && tokenIsPresent
 
-  function removeComment() {
+  async function removeComment() {
     if (!userId) {
       return;
     }
 
-    deleteComment({
+    await deleteComment({
       variables: {
         commentId: comment.id,
       },
     });
+
+    refetch();
   }
 
-  function changeComment() {
+  async function changeComment() {
     if (!userId && !value) {
       return;
     }
 
-    updateComment({
+    await updateComment({
       variables: {
         commentId: comment.id,
         comment: {
@@ -53,6 +56,7 @@ const Comment: FC<CommentProps> = ({ comment, postId }) => {
     });
 
     setEditMode(false);
+    refetch();
   }
 
   return (

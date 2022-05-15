@@ -1,4 +1,3 @@
-import React from "react";
 import {
   FormControl,
   FormLabel,
@@ -10,6 +9,7 @@ import {
   Box,
   Heading,
 } from "@chakra-ui/react";
+import { appData } from "../utils/useappjson";
 import { Form, Field, Formik } from "formik";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
@@ -38,7 +38,7 @@ const Register = () => {
     >
       <Container boxShadow={"xl"} rounded={"md"} p={6}>
         <Center>
-          <Heading py={4}>REGISTER | OUTR-Forums</Heading>
+          <Heading py={4}>REGISTER | {appData.college}-Forums</Heading>
         </Center>
         <Formik
           initialValues={{

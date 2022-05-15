@@ -40,7 +40,7 @@ const UserEditModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
     regNo: "",
   });
   const { userId } = useContext(UserContext);
-  const { data, loading, error } = useQuery(GET_PROFILE, {
+  const { data, loading, error, refetch } = useQuery(GET_PROFILE, {
     variables: { userId },
   });
   const [updateUser] = useMutation(UPDATE_USER);
@@ -98,6 +98,7 @@ const UserEditModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => vo
                 return;
               }
               onClose();
+              refetch();
             }}
           >
             {(props: FormikProps<UserEditModalValues>) => (

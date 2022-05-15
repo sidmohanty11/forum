@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import { Avatar, Box, Button, Heading, Text } from "@chakra-ui/react";
 import MDEditor from "@uiw/react-md-editor";
@@ -10,13 +10,14 @@ import { UPDATE_POST } from "../lib/updatePost";
 import { DELETE_POST } from "../lib/deletePost";
 import { LIKE_OR_DISLIKE_POST } from "../lib/likeOrDislikePost";
 import { useMutation, useQuery } from "@apollo/client";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import CommentBox from "../components/CommentBox";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { UserContext } from "../context/UserContext";
 import MarkdownEditor from "../components/MarkdownEditor";
 import { CommentType } from "../shared/CommentType";
 import { PostType } from "../shared/PostType";
+import { POST_PUBLISH } from "../lib/postPublish";
 
 const colourSelectionForCategories = {
   discussion: "red.500",
@@ -25,7 +26,6 @@ const colourSelectionForCategories = {
 };
 
 const Post = () => {
-  const navigate = useNavigate();
   const [editMode, setEditMode] = useState(false);
   const [value, setValue] = useState("");
   const { userId } = useContext(UserContext);
@@ -36,6 +36,7 @@ const Post = () => {
   const [updatePost] = useMutation(UPDATE_POST);
   const [deletePost] = useMutation(DELETE_POST);
   const [likePost] = useMutation(LIKE_OR_DISLIKE_POST);
+  const [postPublish] = useMutation(POST_PUBLISH);
 
   const [isLiked, setIsLiked] = useState(
     data?.postById.likes.find((id: string) => id === userId)
@@ -56,12 +57,12 @@ const Post = () => {
     }
   }, [refetch, data, userId, loading, error]);
 
-  function editPost() {
+  async function editPost() {
     if (!value || !userId) {
       return;
     }
 
-    updatePost({
+    await updatePost({
       variables: {
         postId: id,
         post: {
@@ -77,14 +78,23 @@ const Post = () => {
     setEditMode(false);
   }
 
-  function removePost() {
+  async function publishIt() {
+    await postPublish({
+      variables: {
+        postId: id,
+      },
+    });
+    window.location.href = "/"
+  }
+
+  async function removePost() {
     if (!userId) {
       return;
     }
 
-    deletePost({ variables: { postId: id } });
+    await deletePost({ variables: { postId: id } });
 
-    navigate("/");
+    window.location.href = "/"
   }
 
   async function likeOrDislikePost() {
@@ -145,6 +155,14 @@ const Post = () => {
               <DeleteIcon />
               <Text>Delete</Text>
             </Button>
+            {!data.postById.published && <Button
+              onClick={publishIt}
+              mx={2}
+              variant="solid"
+              colorScheme={"green"}
+            >
+              Publish
+            </Button>}
           </Box>
         )}
         <Box display={"flex"} experimental_spaceX={3} mt={3}>
@@ -187,7 +205,7 @@ const Post = () => {
         </Box>
         <CommentBox postId={id} refetch={refetch} />
         {data.postById.comments.map((comment: CommentType) => (
-          <Comment key={comment.id} comment={comment} postId={id} />
+          <Comment key={comment.id} comment={comment} postId={id} refetch={refetch} />
         ))}
       </Box>
     </Layout>
