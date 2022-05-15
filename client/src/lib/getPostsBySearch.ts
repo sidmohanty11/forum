@@ -6,6 +6,7 @@ export const GET_POSTS_BY_SEARCH = gql`
       id
       title
       category
+      published
       user {
         name
       }

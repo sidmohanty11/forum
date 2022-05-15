@@ -136,7 +136,7 @@ const Post = () => {
         >
           {data.postById.category.toUpperCase()}
         </Text>
-        <Heading mt={4}>{data.postById.title}</Heading>
+        <Heading mt={4} textAlign="center">{data.postById.title}</Heading>
         {userId === data.postById.user.id && (
           <Box
             display={"flex"}
