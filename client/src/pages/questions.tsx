@@ -95,16 +95,22 @@ const Questions = () => {
               if (prev === 0) {
                 return 0;
               }
-              return prev - 10
+              return prev - 10;
             });
           }}
         >
           Back
         </Button>
       )}
-      {noOfPosts === 10 && <Button onClick={() => {
-        setCounter((prev) => prev + 10)
-      }}>Next</Button>}
+      {noOfPosts === 10 && (
+        <Button
+          onClick={() => {
+            setCounter((prev) => prev + 10);
+          }}
+        >
+          Next
+        </Button>
+      )}
     </Layout>
   );
 };

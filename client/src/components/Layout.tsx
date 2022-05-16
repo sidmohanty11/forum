@@ -9,20 +9,20 @@ import PostPreview from "./PostPreview";
 import { PostType } from "../shared/PostType";
 
 const Layout: FC = ({ children }) => {
-  const [input, setInput] = useState('')
-  const [searchedPosts, setSearchedPosts] = useState([])
-  const [isSearching, setIsSearching] = useState(false)
-  const search = useDebounce(input, 1000)
-  const { data } = useQuery(GET_POSTS_BY_SEARCH, { variables: { search } })
+  const [input, setInput] = useState("");
+  const [searchedPosts, setSearchedPosts] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const search = useDebounce(input, 1000);
+  const { data } = useQuery(GET_POSTS_BY_SEARCH, { variables: { search } });
 
   useEffect(() => {
     if (search && data) {
-      setIsSearching(true)
-      setSearchedPosts(data.postsBySearch)
+      setIsSearching(true);
+      setSearchedPosts(data.postsBySearch);
     } else {
-      setIsSearching(false)
+      setIsSearching(false);
     }
-  }, [search, data])
+  }, [search, data]);
 
   return (
     <Box>
@@ -30,9 +30,18 @@ const Layout: FC = ({ children }) => {
       <Sidebar>
         <Box>
           <Center>
-            <Input type="text" onChange={e => setInput(e.target.value)} placeholder="search" maxW={800} />
+            <Input
+              type="text"
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="search"
+              maxW={800}
+            />
           </Center>
-          {isSearching ? searchedPosts.map((post: PostType) => <PostPreview key={post.id} post={post} />) : children}
+          {isSearching
+            ? searchedPosts.map((post: PostType) => (
+                <PostPreview key={post.id} post={post} />
+              ))
+            : children}
         </Box>
       </Sidebar>
     </Box>

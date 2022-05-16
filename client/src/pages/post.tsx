@@ -41,7 +41,9 @@ const Post = () => {
   const [isLiked, setIsLiked] = useState(
     data?.postById.likes.find((id: string) => id === userId)
   );
-  const [totalLikes, setTotalLikes] = useState<number>(data?.postById.likes.length);
+  const [totalLikes, setTotalLikes] = useState<number>(
+    data?.postById.likes.length
+  );
 
   useEffect(() => {
     if (!loading && !error) {
@@ -84,7 +86,7 @@ const Post = () => {
         postId: id,
       },
     });
-    window.location.href = "/"
+    window.location.href = "/";
   }
 
   async function removePost() {
@@ -94,7 +96,7 @@ const Post = () => {
 
     await deletePost({ variables: { postId: id } });
 
-    window.location.href = "/"
+    window.location.href = "/";
   }
 
   async function likeOrDislikePost() {
@@ -132,11 +134,17 @@ const Post = () => {
           fontSize="lg"
           textAlign={"center"}
           p={4}
-          bgColor={colourSelectionForCategories[data.postById.category as PostType['category']]}
+          bgColor={
+            colourSelectionForCategories[
+              data.postById.category as PostType["category"]
+            ]
+          }
         >
           {data.postById.category.toUpperCase()}
         </Text>
-        <Heading mt={4} textAlign="center">{data.postById.title}</Heading>
+        <Heading mt={4} textAlign="center">
+          {data.postById.title}
+        </Heading>
         {userId === data.postById.user.id && (
           <Box
             display={"flex"}
@@ -155,14 +163,16 @@ const Post = () => {
               <DeleteIcon />
               <Text>Delete</Text>
             </Button>
-            {!data.postById.published && <Button
-              onClick={publishIt}
-              mx={2}
-              variant="solid"
-              colorScheme={"green"}
-            >
-              Publish
-            </Button>}
+            {!data.postById.published && (
+              <Button
+                onClick={publishIt}
+                mx={2}
+                variant="solid"
+                colorScheme={"green"}
+              >
+                Publish
+              </Button>
+            )}
           </Box>
         )}
         <Box display={"flex"} experimental_spaceX={3} mt={3}>
@@ -205,7 +215,12 @@ const Post = () => {
         </Box>
         <CommentBox postId={id} refetch={refetch} />
         {data.postById.comments.map((comment: CommentType) => (
-          <Comment key={comment.id} comment={comment} postId={id} refetch={refetch} />
+          <Comment
+            key={comment.id}
+            comment={comment}
+            postId={id}
+            refetch={refetch}
+          />
         ))}
       </Box>
     </Layout>

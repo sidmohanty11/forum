@@ -17,20 +17,22 @@ import { PostType } from "../shared/PostType";
 
 // home page
 const Home = () => {
-  const [posts, setPosts] = useState<any[]>([])
+  const [posts, setPosts] = useState<any[]>([]);
 
   const [counter, setCounter] = useState(0);
   const { userId } = useContext(UserContext);
   const isUserPresent = userId && localStorage.getItem("token");
-  const { data, error, loading, refetch } = useQuery(GET_POSTS, { variables: { skip: counter } });
+  const { data, error, loading, refetch } = useQuery(GET_POSTS, {
+    variables: { skip: counter },
+  });
   const navigate = useNavigate();
   const [noOfPosts, setNoOfPosts] = useState(data?.posts.length);
 
   useEffect(() => {
     refetch();
     if (data && data.posts) {
-      setPosts(data?.posts)
-      setNoOfPosts(data?.posts.length)
+      setPosts(data?.posts);
+      setNoOfPosts(data?.posts.length);
     }
   }, [refetch, data]);
 
@@ -102,16 +104,22 @@ const Home = () => {
               if (prev === 0) {
                 return 0;
               }
-              return prev - 10
+              return prev - 10;
             });
           }}
         >
           Back
         </Button>
       )}
-      {noOfPosts === 10 && <Button onClick={() => {
-        setCounter((prev) => prev + 10)
-      }}>Next</Button>}
+      {noOfPosts === 10 && (
+        <Button
+          onClick={() => {
+            setCounter((prev) => prev + 10);
+          }}
+        >
+          Next
+        </Button>
+      )}
     </Layout>
   );
 };

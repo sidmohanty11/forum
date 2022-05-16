@@ -27,7 +27,11 @@ const NewPost = () => {
 
   // TODO
   if (loading) {
-    return <Layout><p>Loading...</p></Layout>;
+    return (
+      <Layout>
+        <p>Loading...</p>
+      </Layout>
+    );
   }
 
   return (
@@ -68,7 +72,7 @@ const NewPost = () => {
                 },
               });
             }
-            window.location.href = "/"
+            window.location.href = "/";
           }}
         >
           {(props) => (

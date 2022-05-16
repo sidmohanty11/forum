@@ -12,10 +12,10 @@ import moment from "moment";
 import { CommentType } from "../shared/CommentType";
 
 type CommentProps = {
-  comment: CommentType
-  postId: string | undefined
-  refetch: () => void
-}
+  comment: CommentType;
+  postId: string | undefined;
+  refetch: () => void;
+};
 
 const Comment: FC<CommentProps> = ({ comment, postId, refetch }) => {
   const [editMode, setEditMode] = useState(false);
@@ -24,7 +24,7 @@ const Comment: FC<CommentProps> = ({ comment, postId, refetch }) => {
   const [updateComment] = useMutation(UPDATE_COMMENT);
   const { userId, tokenIsPresent } = useContext(UserContext);
 
-  const userIsPresent = userId && tokenIsPresent
+  const userIsPresent = userId && tokenIsPresent;
 
   async function removeComment() {
     if (!userId) {
@@ -92,6 +92,6 @@ const Comment: FC<CommentProps> = ({ comment, postId, refetch }) => {
       </Stack>
     </Stack>
   );
-}
+};
 
-export default Comment
+export default Comment;

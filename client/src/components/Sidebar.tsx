@@ -56,7 +56,9 @@ const Sidebar: FC = ({ children }) => {
       {/* mobilenav */}
       <MobileNav
         //@ts-ignore
-        display={{ base: "flex", md: "none" }} onOpen={onOpen} />
+        display={{ base: "flex", md: "none" }}
+        onOpen={onOpen}
+      />
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
@@ -92,12 +94,14 @@ const SidebarContent = ({ onClose, ...rest }: { onClose: () => void }) => {
   );
 };
 
-const NavItem: FC<{ icon: IconType, href: string }> = ({ icon, children, href, ...rest }) => {
+const NavItem: FC<{ icon: IconType; href: string }> = ({
+  icon,
+  children,
+  href,
+  ...rest
+}) => {
   return (
-    <Link
-      to={href}
-      style={{ textDecoration: "none" }}
-    >
+    <Link to={href} style={{ textDecoration: "none" }}>
       <Flex
         align="center"
         p="4"

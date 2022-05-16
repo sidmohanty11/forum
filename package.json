@@ -1,0 +1,34 @@
+{
+  "name": "forums",
+  "version": "1.0.0",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "private": true,
+  "description": "An open source full-stack forum system developed in PERNG stack, where students can discuss, ask questions and write blogs.",
+  "scripts": {
+    "build": "concurrently --kill-others-on-fail \"yarn workspace client build\"  \"yarn workspace server build\"",
+    "lint": "concurrently --kill-others-on-fail \"yarn workspace client lint\"  \"yarn workspace server lint\"",
+    "format": "concurrently --kill-others-on-fail \"yarn workspace client format\"  \"yarn workspace server format\"",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EduHeat/forum.git"
+  },
+  "keywords": [
+    "forums",
+    "forum"
+  ],
+  "author": "sidmohanty11(https://github.com/sidmohanty11)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EduHeat/forum/issues"
+  },
+  "homepage": "https://github.com/EduHeat/forum#readme",
+  "devDependencies": {
+    "concurrently": "^7.2.0",
+    "husky": "^8.0.0"
+  }
+}

@@ -23,8 +23,8 @@ import { useQuery } from "@apollo/client";
 import { GET_PROFILE } from "../lib/getProfile";
 
 type NavLinkProps = {
-  href: string
-}
+  href: string;
+};
 
 const NavLink: FC<NavLinkProps> = ({ children, href }) => (
   <Link to={href}>
@@ -46,7 +46,7 @@ const Navbar = () => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
-    window.location.href = "/login"
+    window.location.href = "/login";
   };
 
   return (

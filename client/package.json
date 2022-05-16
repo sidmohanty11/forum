@@ -30,7 +30,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint \"src/**/*.{js,jsx}\"",
+    "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
+    "format": "prettier --write ./src/*"
   },
   "eslintConfig": {
     "extends": [
@@ -55,6 +58,11 @@
     "@types/node": "^17.0.31",
     "@types/react": "^17.0.45",
     "@types/react-dom": "^18.0.3",
+    "eslint": "^8.15.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.29.4",
+    "prettier": "^2.6.2",
     "typescript": "^4.6.4"
   }
 }

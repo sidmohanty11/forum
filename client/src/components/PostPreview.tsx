@@ -26,8 +26,8 @@ const colourSelectionForLikesBg = {
 };
 
 type PostPreviewProps = {
-  post: PostType
-}
+  post: PostType;
+};
 
 const PostPreview: FC<PostPreviewProps> = ({ post }) => {
   return (
@@ -57,7 +57,12 @@ const PostPreview: FC<PostPreviewProps> = ({ post }) => {
               fontSize={"2xl"}
               fontFamily={"body"}
             >
-              {post.title}{!post.published && <Badge ml={2} variant='outline' colorScheme='red'>UNPUBLISHED</Badge>}
+              {post.title}
+              {!post.published && (
+                <Badge ml={2} variant="outline" colorScheme="red">
+                  UNPUBLISHED
+                </Badge>
+              )}
             </Heading>
           </Stack>
           <Stack mt={6} direction={"row"} spacing={4} align={"center"}>

@@ -7,9 +7,9 @@ import { UserContext } from "../context/UserContext";
 import { Link } from "react-router-dom";
 
 type CommentBoxProps = {
-  postId: string | undefined
-  refetch: () => {}
-}
+  postId: string | undefined;
+  refetch: () => {};
+};
 
 const CommentBox: FC<CommentBoxProps> = ({ postId, refetch }) => {
   const { userId, tokenIsPresent } = useContext(UserContext);

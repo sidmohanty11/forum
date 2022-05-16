@@ -29,9 +29,15 @@ type UserEditModalValues = {
   branch: string;
   year: string;
   regNo: string;
-}
+};
 
-const UserEditModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
+const UserEditModal = ({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) => {
   const [profileInfo, setProfileInfo] = useState({
     avatarUrl: "",
     bio: "",
