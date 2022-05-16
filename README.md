@@ -1,6 +1,7 @@
 # Forum
 
 An open source full-stack forum system developed in PERNG stack, where students can discuss, ask questions and write blogs.
+![forums1](https://user-images.githubusercontent.com/73601258/168597069-3aaef09d-9a02-4ce5-b983-571d297ef14b.png)
 
 ## Main features
 1. Barebone forum system for colleges to use
@@ -36,7 +37,7 @@ For example,
 	]
 }
 ```
-and that's it, it for deployment.
+and that's it, it's ready for deployment.
 
 ## Development
 Fork and clone the repository.
