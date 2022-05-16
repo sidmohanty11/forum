@@ -1,0 +1,16 @@
+{
+  "college": "OUTR",
+  "collegeUrl": "https://cet.edu.in",
+  "branches": [
+    "CSE",
+    "IT",
+    "EE",
+    "EIE",
+    "MECH",
+    "CIVIL",
+    "BIO",
+    "FAT",
+    "TE",
+    "B.PLAN"
+  ]
+}
